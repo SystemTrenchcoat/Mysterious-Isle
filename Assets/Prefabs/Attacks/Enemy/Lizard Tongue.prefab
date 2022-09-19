@@ -104,9 +104,11 @@ MonoBehaviour:
   effect: 0
   instanceCreated: {fileID: 9074477170878257615, guid: ec788c953e13db94786ade915317a0ec, type: 3}
   instanceAmount: 1
+  instanceX: 0
+  instanceY: 0
   instancesXs: []
   instancesYs: []
-  special: 
+  special: Tongue
   needAttackerDirection: 0
   trigger: 0
   ability: 0

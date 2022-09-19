@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,7 @@ public class Controller : MonoBehaviour
 
     //public float speed = .2f;
 
-    public enum charClass { Warrior, Archer};
+    public enum charClass { Warrior, Archer };
 
     public charClass chara;
 
@@ -54,6 +55,48 @@ public class Controller : MonoBehaviour
         }
 
         //Tile-based movement
+        Debug.Log(entity.isAttacking);
+        if(!entity.isAttacking)
+            tileMovement();
+        //Debug.Log(entity.direction);
+
+        var collider = Physics2D.OverlapCircle(new Vector3(transform.position.x + xOffset, transform.position.y + yOffset, 0), .25f);
+        //Debug.Log(!(NextTile(barriers)) && collider != null && collider.tag == "Walkable");
+        if (!(NextTile(barriers)) && collider != null && collider.isTrigger//(collider.tag == "Walkable" || collider.tag == "Collectable")
+            || !(NextTile(barriers)) && collider == null)
+        {
+            gameObject.transform.Translate(new Vector3(xOffset, yOffset, 0));
+        }
+
+
+        //end of movement
+
+        //attack using ability
+        if (entity.attack.GetComponent<Damage>().special == "Rapid Shot" && !Input.GetKey(KeyCode.LeftControl) || entity.attack.GetComponent<Damage>().special != "Rapid Shot")
+        {
+            entity.isAttacking = false;
+        }
+
+        if (Input.GetKeyDown("left ctrl"))
+        {
+            //Debug.Log("Attack");
+            entity.isAttacking = true;
+            Instantiate(entity.attack, new Vector3(transform.position.x + entity.changeXOffset(), transform.position.y + entity.changeYOffset(), -1), Quaternion.identity);
+        }
+        //end of attack using ability
+
+        //attack using weapon
+        if (Input.GetKeyDown("left alt"))
+        {
+            //Debug.Log("Attack");
+            entity.isAttacking = true;
+            Instantiate(entity.weapon, new Vector3(transform.position.x + entity.changeXOffset(), transform.position.y + entity.changeYOffset(), -1), Quaternion.identity);
+        }
+        //end of attack using weapon
+    }
+
+    private void tileMovement()
+    {
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
             entity.changeDirection("Left");
@@ -83,38 +126,6 @@ public class Controller : MonoBehaviour
             xOffset = 0;
             yOffset = 0;
         }
-        //Debug.Log(entity.direction);
-
-        var collider = Physics2D.OverlapCircle(new Vector3(transform.position.x + xOffset, transform.position.y + yOffset, 0), .25f);
-        //Debug.Log(!(NextTile(barriers)) && collider != null && collider.tag == "Walkable");
-        if (!(NextTile(barriers)) && collider != null && collider.isTrigger//(collider.tag == "Walkable" || collider.tag == "Collectable")
-            || !(NextTile(barriers)) && collider == null)
-        {
-            gameObject.transform.Translate(new Vector3(xOffset, yOffset, 0));
-        }
-
-
-        //end of movement
-
-        //attack using ability
-        entity.isAttacking = false;
-
-        if (Input.GetKeyDown("left ctrl"))
-        {
-            //Debug.Log("Attack");
-            entity.isAttacking = true;
-            Instantiate(entity.attack, new Vector3(transform.position.x + entity.changeXOffset(), transform.position.y + entity.changeYOffset(), -1), Quaternion.identity);
-        }
-        //end of attack using ability
-
-        //attack using weapon
-        if (Input.GetKeyDown("left alt"))
-        {
-            //Debug.Log("Attack");
-            entity.isAttacking = true;
-            Instantiate(entity.weapon, new Vector3(transform.position.x + entity.changeXOffset(), transform.position.y + entity.changeYOffset(), -1), Quaternion.identity);
-        }
-        //end of attack using weapon
     }
 
     void FixedUpdate()

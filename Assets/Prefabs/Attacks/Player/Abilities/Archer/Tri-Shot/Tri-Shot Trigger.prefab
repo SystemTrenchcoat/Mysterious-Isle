@@ -104,12 +104,14 @@ MonoBehaviour:
   effect: 0
   instanceCreated: {fileID: 3943965070096775766, guid: bab5eece0bcb4d248bda54dde8ad47c0, type: 3}
   instanceAmount: 1
+  instanceX: 0
+  instanceY: 0
+  instancesXs: []
+  instancesYs: []
   special: Trigger
   needAttackerDirection: 1
   trigger: 1
   ability: 0
-  instancesXs: []
-  instancesYs: []
   effectDamage: 0
   effectDuration: 0
   effectDamageCooldown: 0
