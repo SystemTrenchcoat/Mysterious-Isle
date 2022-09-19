@@ -198,6 +198,7 @@ MonoBehaviour:
   maxAtkDistY: 1
   noX: 
   noY: 
+  numActions: 1
   canDefend: 0
   canDiag: 0
 --- !u!114 &8107896519066133735

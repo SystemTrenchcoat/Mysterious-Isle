@@ -43,6 +43,11 @@ public class Enemy : MonoBehaviour
     public int[] noX;
     public int[] noY;
 
+    public int numActions = 1;
+    public int actionsRemaining = 1;
+    public float visualDelay = .5f;
+    public float visualCounter;
+
     public bool canDefend = false;
     public bool canDiag = false;
 
@@ -90,31 +95,43 @@ public class Enemy : MonoBehaviour
             timerB = blockDuration;
             entity.isAttacking = false;
             entity.isDefending = false;
-            DecideAction();
-
-            //Debug.Log(nextAction);
-            if (nextAction == Action.Attack)
+            if (actionsRemaining > 0 && visualCounter <= 0)
             {
-                //Debug.Log("Attack");
-                entity.isAttacking = true;
-                //Debug.Log(xOffset + "\n" + yOffset);
+                DecideAction();
 
-                Instantiate(entity.attack, new Vector3(transform.position.x + xOffset, transform.position.y + yOffset, -1), Quaternion.identity);
+                //Debug.Log(nextAction);
+                if (nextAction == Action.Attack)
+                {
+                    //Debug.Log("Attack");
+                    entity.isAttacking = true;
+                    //Debug.Log(xOffset + "\n" + yOffset);
+
+                    Instantiate(entity.attack, new Vector3(transform.position.x + xOffset, transform.position.y + yOffset, -1), Quaternion.identity);
+                }
+
+                //gradually moves enemy to location
+                else if (nextAction == Action.Move)
+                {
+                    gameObject.transform.Translate(new Vector3(xOffset, yOffset, 0));
+                    //if (Vector3.Distance(transform.position, nextLocation) <= 0)
+                }
+
+                else if (nextAction == Action.Defend)
+                {
+                    entity.isDefending = true;
+                }
+
+                actionsRemaining -= 1;
+                visualCounter = visualDelay;
             }
 
-            //gradually moves enemy to location
-            else if (nextAction == Action.Move)
-            {
-                gameObject.transform.Translate(new Vector3(xOffset, yOffset, 0));
-                //if (Vector3.Distance(transform.position, nextLocation) <= 0)
-            }
+            visualCounter -= Time.deltaTime;
 
-            else if (nextAction == Action.Defend)
+            if (actionsRemaining <= 0)
             {
-                entity.isDefending = true;
+                actionsRemaining = numActions;
+                timer = actionDelay;
             }
-
-            timer = actionDelay;
         }
 
         //Debug.Log(timer);
