@@ -27,6 +27,8 @@ public class Enemy : MonoBehaviour
     public Tilemap paths;
 
     public bool ignoreDistance;
+    public bool omniAttacker;
+    public bool omniTracker;
 
     public float xOffset = 0;
     public float yOffset = -1f;
@@ -49,7 +51,12 @@ public class Enemy : MonoBehaviour
     public float visualCounter;
 
     public bool canDefend = false;
+    public int abilityChance;// = 25;
+    public bool abilityOverload = false; //ability instead of attack
+    public int altChance;// = 50;
     public bool canDiag = false;
+
+    public GameObject instance;
 
     // Start is called before the first frame update
     void Start()
@@ -106,7 +113,7 @@ public class Enemy : MonoBehaviour
                     entity.isAttacking = true;
                     //Debug.Log(xOffset + "\n" + yOffset);
 
-                    Instantiate(entity.attack, new Vector3(transform.position.x + xOffset, transform.position.y + yOffset, -1), Quaternion.identity);
+                    Instantiate(instance, new Vector3(transform.position.x + xOffset, transform.position.y + yOffset, -1), Quaternion.identity);
                 }
 
                 //gradually moves enemy to location
@@ -271,6 +278,24 @@ public class Enemy : MonoBehaviour
             }
         }
 
+        if (act == Action.Attack)
+        {
+            instance = entity.weapon;
+
+            if (abilityOverload)
+            {
+                instance = entity.attack;
+            }
+            if (abilityChance > 0 && Random.Range(0, 100) <= abilityChance)
+            {
+                instance = entity.attack;
+            }
+            if (altChance > 0 && Random.Range(0, 100) <= altChance)
+            {
+                instance = entity.alt;
+            }
+        }
+
         if (act == Action.Move && !skip)
         {
             if (locations.Count > 0)
@@ -307,30 +332,30 @@ public class Enemy : MonoBehaviour
         nextAction = act;
     }
 
-    private void DecideBlock()
-    {
-        for (int i = 0; i < xs.Length; i++)
-        {
-            int x = xs[i];
-            int y = ys[i];
-            Vector3 check = new Vector3(transform.position.x + x, transform.position.y + y, 0);
-            var collider = Physics2D.OverlapCircle(check, .5f);
-            //is the next position occupied by anyone? if yes, player or enemy? if player, change to attack, if enemy, return current position, if neither, return next coordinate
-            if (collider != null && collider.GetComponent<BoxCollider2D>() != null && collider.GetComponent<BoxCollider2D>())// != rb.GetComponent<BoxCollider2D>())
-            {
-                //Debug.Log("Something near...");
-                if (collider.CompareTag("Player"))
-                {
-                    nextAction = Action.Defend;
-                    entity.isDefending = true;
-                }
-                else
-                {
-                    entity.isDefending = false;
-                }
-            }
-        }
-    }
+    ////private void DecideBlock()
+    //{
+    //    for (int i = 0; i < xs.Length; i++)
+    //    {
+    //        int x = xs[i];
+    //        int y = ys[i];
+    //        Vector3 check = new Vector3(transform.position.x + x, transform.position.y + y, 0);
+    //        var collider = Physics2D.OverlapCircle(check, .5f);
+    //        //is the next position occupied by anyone? if yes, player or enemy? if player, change to attack, if enemy, return current position, if neither, return next coordinate
+    //        if (collider != null && collider.GetComponent<BoxCollider2D>() != null && collider.GetComponent<BoxCollider2D>())// != rb.GetComponent<BoxCollider2D>())
+    //        {
+    //            //Debug.Log("Something near...");
+    //            if (collider.CompareTag("Player"))
+    //            {
+    //                nextAction = Action.Defend;
+    //                entity.isDefending = true;
+    //            }
+    //            else
+    //            {
+    //                entity.isDefending = false;
+    //            }
+    //        }
+    //    }
+    //}
 
     private void OnDrawGizmos()
     {

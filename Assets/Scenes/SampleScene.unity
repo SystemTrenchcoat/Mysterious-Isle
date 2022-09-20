@@ -284,6 +284,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7326527449613399065, guid: 17595bd207221884aa1ac551a70dcee2, type: 3}
+      propertyPath: movementDelay
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17595bd207221884aa1ac551a70dcee2, type: 3}
 --- !u!1 &621266911
@@ -3420,3 +3424,60 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ce819f7cdf0cb2428938f5ebca2148f, type: 3}
+--- !u!1001 &88659513853629834
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2391647598873254412, guid: 18454469571d3f34f8f77c514b9ac060, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2391647598873254412, guid: 18454469571d3f34f8f77c514b9ac060, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2391647598873254412, guid: 18454469571d3f34f8f77c514b9ac060, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2391647598873254412, guid: 18454469571d3f34f8f77c514b9ac060, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2391647598873254412, guid: 18454469571d3f34f8f77c514b9ac060, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2391647598873254412, guid: 18454469571d3f34f8f77c514b9ac060, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2391647598873254412, guid: 18454469571d3f34f8f77c514b9ac060, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2391647598873254412, guid: 18454469571d3f34f8f77c514b9ac060, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2391647598873254412, guid: 18454469571d3f34f8f77c514b9ac060, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2391647598873254412, guid: 18454469571d3f34f8f77c514b9ac060, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2391647598873254412, guid: 18454469571d3f34f8f77c514b9ac060, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5628677855138564183, guid: 18454469571d3f34f8f77c514b9ac060, type: 3}
+      propertyPath: m_Name
+      value: Hippogriff
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 18454469571d3f34f8f77c514b9ac060, type: 3}

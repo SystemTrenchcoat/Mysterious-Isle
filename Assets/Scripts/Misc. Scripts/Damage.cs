@@ -269,7 +269,7 @@ public class Damage : MonoBehaviour
             //Debug.Log(entity.health);
             if (special != "Trigger")
             {
-                Destroy(this.gameObject);
+                //Destroy(this.gameObject);
             }
         }
     }

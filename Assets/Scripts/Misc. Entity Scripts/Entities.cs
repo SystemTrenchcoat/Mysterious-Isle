@@ -23,6 +23,7 @@ public class Entities : MonoBehaviour
 
     public GameObject attack;
     public GameObject weapon;
+    public GameObject alt;
 
     public float damageBonus;
     public float defenseBonus;
