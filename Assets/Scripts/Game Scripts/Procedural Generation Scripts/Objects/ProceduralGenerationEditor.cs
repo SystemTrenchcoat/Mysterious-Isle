@@ -6,7 +6,7 @@ using static UnityEngine.GraphicsBuffer;
 
 [CustomEditor(typeof(ObjectInstantiatorAbstract), true)]
 
-public class RandomDungeonGeneratorEditor : Editor
+public class ProceduralGeneratorEditor : Editor
 {
     ObjectInstantiatorAbstract generator;
 
