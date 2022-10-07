@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7685148734857974114
+--- !u!1 &112471713081782170
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,42 +8,42 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7685148734857974117}
-  - component: {fileID: 7685148734857974116}
-  - component: {fileID: 7685148734857974119}
-  - component: {fileID: 7685148734857974118}
-  - component: {fileID: 7685148734857974112}
-  - component: {fileID: 7685148734857974115}
-  - component: {fileID: 3343029143972584790}
+  - component: {fileID: 112471713081782173}
+  - component: {fileID: 112471713081782172}
+  - component: {fileID: 112471713081782175}
+  - component: {fileID: 112471713081782174}
+  - component: {fileID: 112471713081782168}
+  - component: {fileID: 112471713081782171}
+  - component: {fileID: 4993477311510078382}
   m_Layer: 6
-  m_Name: Spider
+  m_Name: Fox
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7685148734857974117
+--- !u!4 &112471713081782173
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7685148734857974114}
+  m_GameObject: {fileID: 112471713081782170}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.5, y: -10.5, z: -1}
+  m_LocalPosition: {x: 7.5, y: -1.5, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &7685148734857974116
+--- !u!212 &112471713081782172
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7685148734857974114}
+  m_GameObject: {fileID: 112471713081782170}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3f5ca4308effc0c4caa675062d51c44c, type: 3}
-  m_Color: {r: 0.4509804, g: 0.22499214, b: 0.047058824, a: 1}
+  m_Color: {r: 1, g: 0.43689317, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -89,13 +89,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &7685148734857974119
+--- !u!61 &112471713081782175
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7685148734857974114}
+  m_GameObject: {fileID: 112471713081782170}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -115,14 +115,14 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9, y: 0.9}
   m_EdgeRadius: 0
---- !u!50 &7685148734857974118
+--- !u!50 &112471713081782174
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7685148734857974114}
+  m_GameObject: {fileID: 112471713081782170}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -136,24 +136,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &7685148734857974112
+--- !u!114 &112471713081782168
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7685148734857974114}
+  m_GameObject: {fileID: 112471713081782170}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b971e3e5d40aeed48a4c3a66c7a8a4ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nextAction: 0
-  actionDelay: 2
-  attackDelay: 2
-  blockDuration: 1
-  timer: 2
-  timerA: 2
+  actionDelay: 1
+  attackDelay: 1
+  blockDuration: 0
+  timer: 1
+  timerA: 1
   timerB: 1
   speed: 0.2
   dangers: {fileID: 0}
@@ -164,8 +164,8 @@ MonoBehaviour:
   omniTracker: 0
   xOffset: 0
   yOffset: -1
-  xs: ffffffff01000000ffffffff01000000feffffff02000000feffffff02000000
-  ys: 0100000001000000ffffffffffffffff0200000002000000fefffffffeffffff
+  xs: 0100000000000000ffffffff00000000ffffffff01000000ffffffff010000000200000000000000feffffff00000000feffffff02000000feffffff02000000
+  ys: 000000000100000000000000ffffffff0100000001000000ffffffffffffffff000000000200000000000000feffffff0200000002000000fefffffffeffffff
   lowestX: 1
   lowestY: 1
   maxAtkDistX: 1
@@ -181,15 +181,15 @@ MonoBehaviour:
   abilityOverload: 0
   altChance: 0
   canDiag: 1
-  special: Only Diag
+  special: 
   instance: {fileID: 0}
---- !u!114 &7685148734857974115
+--- !u!114 &112471713081782171
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7685148734857974114}
+  m_GameObject: {fileID: 112471713081782170}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff277890d8e75ed4a85149dec5bd8593, type: 3}
@@ -206,21 +206,21 @@ MonoBehaviour:
   isFlying: 0
   isAttacking: 0
   isDefending: 0
-  attack: {fileID: 1232102153518243575, guid: 98c4c453880310444ade8dd77e78c8f2, type: 3}
-  weapon: {fileID: 1232102153518243575, guid: 98c4c453880310444ade8dd77e78c8f2, type: 3}
+  attack: {fileID: 2232219917897369427, guid: cd7e7c98267fde5468ec40fa13a61478, type: 3}
+  weapon: {fileID: 2232219917897369427, guid: cd7e7c98267fde5468ec40fa13a61478, type: 3}
   alt: {fileID: 0}
   damageBonus: 0
   defenseBonus: 0
   crit: 0
   health: 20
   hp: 20
---- !u!114 &3343029143972584790
+--- !u!114 &4993477311510078382
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7685148734857974114}
+  m_GameObject: {fileID: 112471713081782170}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f29d0c0ea26d664e8e542dd02e71e94, type: 3}

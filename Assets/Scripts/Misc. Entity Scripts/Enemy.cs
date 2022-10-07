@@ -57,6 +57,7 @@ public class Enemy : MonoBehaviour
     public bool abilityOverload = false; //ability instead of attack
     public int altChance;// = 50;
     public bool canDiag = false;
+    public string special;
 
     public GameObject instance;
 
@@ -172,6 +173,19 @@ public class Enemy : MonoBehaviour
             if (!canDiag)
             {
                 while (direct > 3)
+                {
+                    direct -= 4;
+                }
+            }
+
+            else if (special == "Only Diag")
+            {
+                while (direct < 4)
+                {
+                    direct += 4;
+                }
+
+                while (direct > 7)
                 {
                     direct -= 4;
                 }
