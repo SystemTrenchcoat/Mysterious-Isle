@@ -17,9 +17,11 @@ public class Enemy : MonoBehaviour
 
     public Action nextAction = Action.Move;
     public float actionDelay = 2f;
+    public float attackDelay = 2f;
     public float blockDuration = 1f;
     public float timer = 2f;
-    public float timerB = 1f;
+    public float timerA = 2f; //Attack
+    public float timerB = 1f; //Block
     public float speed = .2f;
 
     public Tilemap dangers;
@@ -143,6 +145,7 @@ public class Enemy : MonoBehaviour
 
         //Debug.Log(timer);
         timer -= Time.deltaTime;
+        timerA -= Time.deltaTime;
     }
 
     private void DecideAction()
@@ -207,16 +210,17 @@ public class Enemy : MonoBehaviour
                 if (collider != null && collider.GetComponent<BoxCollider2D>() != null && collider.GetComponent<BoxCollider2D>())// != rb.GetComponent<BoxCollider2D>())
                 {
                     //Debug.Log("Something near...");
-                    if (collider.CompareTag("Player"))
+                    if (collider.CompareTag("Player") && timerA <= 0)
                     {
                         //Debug.Log(Math.Abs(check.x - transform.position.x) + "\n" + Math.Abs(check.y - transform.position.y));
                         bool inAtkRng = Math.Abs(check.x - transform.position.x) <= maxAtkDistX && Math.Abs(check.y - transform.position.y) <= maxAtkDistY;
-                        if (inAtkRng || ignoreDistance)
+                        if ((inAtkRng || ignoreDistance))
                         {
                             act = Action.Attack;
                             entity.changeDirection(direct);
                             xOffset = Math.Sign(x) * maxAtkDistX;
                             yOffset = Math.Sign(y) * maxAtkDistY;
+                            timerA = attackDelay;
                             //Debug.Log(x + "\n" + y);
                             //Debug.Log(xOffset + "\n" + yOffset);
                             //i = 10; //end loop
