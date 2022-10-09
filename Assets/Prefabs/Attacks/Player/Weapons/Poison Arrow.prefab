@@ -101,13 +101,17 @@ MonoBehaviour:
   attacker: {fileID: 0}
   direction: 0
   type: 1
-  effect: 0
+  effect: 1
   instanceCreated: {fileID: 0}
   instanceAmount: 0
-  special: 
-  needAttackerDirection: 0
+  instanceX: 0
+  instanceY: 0
   instancesXs: []
   instancesYs: []
+  special: 
+  needAttackerDirection: 0
+  trigger: 0
+  ability: 0
   effectDamage: 2
   effectDuration: 6
   effectDamageCooldown: 2
@@ -139,7 +143,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.56, y: 2.56}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 2.56, y: 2.56}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

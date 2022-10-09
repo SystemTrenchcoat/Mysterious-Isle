@@ -101,9 +101,11 @@ MonoBehaviour:
   attacker: {fileID: 0}
   direction: 0
   type: 0
-  effect: 0
+  effect: 1
   instanceCreated: {fileID: 0}
   instanceAmount: 0
+  instanceX: 0
+  instanceY: 0
   instancesXs: []
   instancesYs: []
   special: 

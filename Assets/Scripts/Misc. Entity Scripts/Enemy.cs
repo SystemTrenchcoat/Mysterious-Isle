@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
+using static UnityEditor.FilePathAttribute;
+using Unity.VisualScripting;
 
 public class Enemy : MonoBehaviour
 {
@@ -12,6 +14,7 @@ public class Enemy : MonoBehaviour
 
     Entities entity;
     Rigidbody2D rb;
+    SpriteRenderer spriteRenderer;
     Vector3 nextLocation;
     Vector3 playerLocation;
 
@@ -28,6 +31,7 @@ public class Enemy : MonoBehaviour
     public Tilemap barriers;
     public Tilemap paths;
 
+    public bool camo;
     public bool ignoreDistance;
     public bool omniAttacker;
     public bool omniTracker;
@@ -56,6 +60,8 @@ public class Enemy : MonoBehaviour
     public int abilityChance;// = 25;
     public bool abilityOverload = false; //ability instead of attack
     public int altChance;// = 50;
+    public bool altOverload = false;
+    public bool hybridAttacker;
     public bool canDiag = false;
     public string special;
 
@@ -66,6 +72,7 @@ public class Enemy : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         entity = GetComponent<Entities>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         dangers = GameObject.Find("Dangers").GetComponent<Tilemap>();
         barriers = GameObject.Find("Barriers").GetComponent<Tilemap>();
         paths = GameObject.Find("Paths").GetComponent<Tilemap>();
@@ -105,7 +112,7 @@ public class Enemy : MonoBehaviour
             timerB = blockDuration;
             entity.isAttacking = false;
             entity.isDefending = false;
-            if (actionsRemaining > 0 && visualCounter <= 0)
+            if (actionsRemaining > 0 && visualCounter <= 0 && entity.effect != Entities.Effect.Stunned)
             {
                 DecideAction();
 
@@ -158,6 +165,8 @@ public class Enemy : MonoBehaviour
         bool canMove = true;
         Vector3 check;
         Vector3 next;
+        xOffset = 0;
+        yOffset = 0;
 
         List<Vector3> locations = new List<Vector3>();
 
@@ -211,14 +220,19 @@ public class Enemy : MonoBehaviour
             //Debug.Log(Mathf.Sign(x)+ " " + Mathf.Sign(y));
             check = new Vector3(transform.position.x + x, transform.position.y + y, 0);
             next = new Vector3(transform.position.x + (Math.Sign(x) * lowestX), transform.position.y + (Math.Sign(y) * lowestY), 0);
-            Vector3Int barrierMapTile = barriers.WorldToCell(next);
-            Vector3Int dangerMapTile = dangers.WorldToCell(next);
-            Vector3Int pathMapTile = barriers.WorldToCell(next);
 
-            //is next tile a wall? if no, return coordinate, if yes, return current position
-            if (barriers.GetTile(barrierMapTile) == null && (dangers.GetTile(dangerMapTile) != null || paths.GetTile(pathMapTile)))
+            if (canMove)
             {
-                //Debug.Log("No wall\n" + i);
+                canMove = CheckLocation(check, next);
+            }
+
+            if (canMove)
+            {
+                locations.Add(next);
+            }
+
+            else
+            {
                 var collider = Physics2D.OverlapCircle(check, .5f);
                 //is the next position occupied by anyone? if yes, player or enemy? if player, change to attack, if enemy, return current position, if neither, return next coordinate
                 if (collider != null && collider.GetComponent<BoxCollider2D>() != null && collider.GetComponent<BoxCollider2D>())// != rb.GetComponent<BoxCollider2D>())
@@ -235,16 +249,15 @@ public class Enemy : MonoBehaviour
                             xOffset = Math.Sign(x) * maxAtkDistX;
                             yOffset = Math.Sign(y) * maxAtkDistY;
                             timerA = attackDelay;
+                            if ((hybridAttacker && !inAtkRng) || (inAtkRng && entity.attack.GetComponent<Damage>().special == "Lunge"))
+                            {
+                                altOverload = true;
+                            }
+
                             //Debug.Log(x + "\n" + y);
                             //Debug.Log(xOffset + "\n" + yOffset);
                             //i = 10; //end loop
                             //Debug.Log("Next action: Attack") ;
-                        }
-
-                        else if ((Math.Abs(next.x - playerLocation.x) == 0 || Math.Abs(playerLocation.x - next.x) == 0)
-                            && (Math.Abs(next.y - playerLocation.y) == 0 || Math.Abs(playerLocation.y - next.y) == 0))
-                        {
-                            canMove = false;
                         }
 
                         else if (canDefend && !inAtkRng)
@@ -253,7 +266,7 @@ public class Enemy : MonoBehaviour
                             //Debug.Log("Next action: Defend");
                         }
 
-                        else if (canMove)
+                        else
                         {
                             act = Action.Move;
                             skip = true;
@@ -263,58 +276,62 @@ public class Enemy : MonoBehaviour
                             //i = 10; //end loop
                             //Debug.Log(xOffset + " " + yOffset);
                         }
-
-                        else
-                        {
-                            canMove = false;
-                            //Debug.Log("Ally near\n" + collider);
-                        }
                     }
-
-                    else
-                    {
-                        canMove = false;
-                        //Debug.Log("Ally near\n" + collider);
-                    }
-                    //change direction to this direction and attack
                 }
-
-                else
-                {
-                    if (canMove)
-                    {
-                        locations.Add(next);
-                    }
-                    //Debug.Log(next);
-                }
-            }
-
-            else
-            {
-                canMove = false;
-                //Debug.Log("There's a wall");
             }
         }
 
         if (act == Action.Attack)
         {
-            instance = entity.weapon;
+            Debug.Log(altOverload);
+            if (entity.isBurrowing)
+            {
+                entity.isBurrowing = false;
+                spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1f);
+                act = Action.Move;
+                xOffset = 0;
+                yOffset = 0;
+                skip = true;
+            }
 
-            if (abilityOverload)
+            else
             {
-                instance = entity.attack;
+                instance = entity.weapon;
+
+                if (abilityOverload)
+                {
+                    instance = entity.attack;
+                }
+                if (altOverload)
+                {
+                    instance = entity.alt;
+                }
+                if (abilityChance > 0 && Random.Range(1, 101) <= abilityChance)
+                {
+                    instance = entity.attack;
+                }
+                if (altChance > 0 && Random.Range(1, 101) <= altChance)
+                {
+                    instance = entity.alt;
+                }
             }
-            if (abilityChance > 0 && Random.Range(0, 100) <= abilityChance)
+
+            if (hybridAttacker || entity.attack.GetComponent<Damage>().special == "Lunge")
             {
-                instance = entity.attack;
-            }
-            if (altChance > 0 && Random.Range(0, 100) <= altChance)
-            {
-                instance = entity.alt;
+                altOverload = false;
             }
         }
 
-        if (act == Action.Move && !skip)
+        else if (act == Action.Move && entity.canBurrow && !entity.isBurrowing && !camo)
+        {
+            xOffset = 0;
+            yOffset = 0;
+            entity.isBurrowing = true;
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, .5f);
+            locations.Clear();
+        }
+
+        else if (act == Action.Move && !skip && !camo)
         {
             if (locations.Count > 0)
             {
@@ -347,7 +364,57 @@ public class Enemy : MonoBehaviour
             }
         }
 
+        if (entity.effect == Entities.Effect.Disoriented)
+        {
+            xOffset *= -1;
+            yOffset *= -1;
+
+            if (!CheckLocation(new Vector3(transform.position.x + xOffset, transform.position.y + yOffset, 0)))
+            {
+                xOffset = 0;
+                yOffset = 0;
+            }
+        }
+
         nextAction = act;
+    }
+
+    private bool CheckLocation(Vector3 check, Vector3 next)
+    {
+        bool canMove = true;
+
+        Vector3Int barrierMapTile = barriers.WorldToCell(next);
+        Vector3Int dangerMapTile = dangers.WorldToCell(next);
+        Vector3Int pathMapTile = barriers.WorldToCell(next);
+
+        //is next tile a wall? if no, return coordinate, if yes, return current position
+        if (barriers.GetTile(barrierMapTile) == null && (dangers.GetTile(dangerMapTile) != null || paths.GetTile(pathMapTile)))
+        {
+            //Debug.Log("No wall\n" + i);
+            var collider = Physics2D.OverlapCircle(check, .5f);
+            //is the next position occupied by anyone? if yes, player or enemy? if player, change to attack, if enemy, return current position, if neither, return next coordinate
+            if (collider != null && collider.GetComponent<BoxCollider2D>() != null && collider.GetComponent<BoxCollider2D>())// != rb.GetComponent<BoxCollider2D>())
+            {
+                //Debug.Log("Something near...");
+
+                canMove = false;
+            }
+        }
+
+        else
+        {
+            canMove = false;
+            //Debug.Log("There's a wall");
+        }
+
+        return canMove;
+    }
+
+    private bool CheckLocation(Vector3 next)
+    {
+        bool canMove = CheckLocation(next, next);
+
+        return canMove;
     }
 
     ////private void DecideBlock()

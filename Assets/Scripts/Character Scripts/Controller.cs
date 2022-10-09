@@ -55,8 +55,8 @@ public class Controller : MonoBehaviour
         }
 
         //Tile-based movement
-        Debug.Log(entity.isAttacking);
-        if(!entity.isAttacking)
+        //Debug.Log(entity.isAttacking);
+        if(!entity.isAttacking && entity.effect != Entities.Effect.Stunned && entity.effect != Entities.Effect.Skunked)
             tileMovement();
         //Debug.Log(entity.direction);
 
@@ -125,6 +125,12 @@ public class Controller : MonoBehaviour
         {
             xOffset = 0;
             yOffset = 0;
+        }
+
+        if (entity.effect == Entities.Effect.Disoriented)
+        {
+            xOffset *= -1;
+            yOffset *= -1;
         }
     }
 

@@ -8,7 +8,7 @@ public class Damage : MonoBehaviour
 {
     public enum Direction { Right, Up, Left, Down, UL, UR, DL, DR };
     public enum Type { Melee, Ranged };
-    public enum Effect { None, Poison };
+    public enum Effect { None, Poison, Disoriented, Stunned, Skunked };
     public Entities attacker;
 
     public Direction direction;// = Direction.Down;
@@ -259,10 +259,18 @@ public class Damage : MonoBehaviour
                 entity.Damage(damage);
             }
 
-            if (effect == Effect.Poison)
+            if (effect != Effect.None)
             {
-                //Debug.Log("Poisn");
-                entity.inflictEffect((int)effect, effectDamage, effectDuration, effectDamageCooldown);
+                if (effectDamage > 0)
+                {
+                    //Debug.Log("Poisn");
+                    entity.inflictEffect((int)effect, effectDamage, effectDuration, effectDamageCooldown);
+                }
+
+                else
+                {
+                    entity.inflictEffect((int)effect, 0, effectDuration, effectDamageCooldown);
+                }
             }
 
             dCount = dCooldown;

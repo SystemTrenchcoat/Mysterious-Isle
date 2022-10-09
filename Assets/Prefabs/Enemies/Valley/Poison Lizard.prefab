@@ -1,0 +1,235 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &141257845946725841
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 141257845946725846}
+  - component: {fileID: 141257845946725847}
+  - component: {fileID: 141257845946725844}
+  - component: {fileID: 141257845946725845}
+  - component: {fileID: 141257845946725843}
+  - component: {fileID: 141257845946725840}
+  - component: {fileID: 4987217647526951397}
+  m_Layer: 6
+  m_Name: Poison Lizard
+  m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &141257845946725846
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141257845946725841}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.5, y: 0.5, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &141257845946725847
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141257845946725841}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 3f5ca4308effc0c4caa675062d51c44c, type: 3}
+  m_Color: {r: 0.33771023, g: 0.07597007, b: 0.41509432, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!61 &141257845946725844
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141257845946725841}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.9, y: 0.9}
+  m_EdgeRadius: 0
+--- !u!50 &141257845946725845
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141257845946725841}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!114 &141257845946725843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141257845946725841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b971e3e5d40aeed48a4c3a66c7a8a4ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextAction: 0
+  actionDelay: 1
+  attackDelay: 1
+  blockDuration: 1
+  timer: 1
+  timerA: 1
+  timerB: 1
+  speed: 0.2
+  dangers: {fileID: 0}
+  barriers: {fileID: 0}
+  paths: {fileID: 0}
+  camo: 0
+  ignoreDistance: 1
+  omniAttacker: 0
+  omniTracker: 0
+  xOffset: 0
+  yOffset: -1
+  xs: 0100000000000000ffffffff000000000400000000000000feffffff00000000
+  ys: 000000000100000000000000ffffffff000000000200000000000000feffffff
+  lowestX: 1
+  lowestY: 1
+  maxAtkDistX: 1
+  maxAtkDistY: 1
+  noX: 
+  noY: 
+  numActions: 1
+  actionsRemaining: 1
+  visualDelay: 0.5
+  visualCounter: 0
+  canDefend: 0
+  abilityChance: 0
+  abilityOverload: 1
+  altChance: 50
+  altOverload: 0
+  hybridAttacker: 0
+  canDiag: 0
+  special: 
+  instance: {fileID: 0}
+--- !u!114 &141257845946725840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141257845946725841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff277890d8e75ed4a85149dec5bd8593, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 3
+  defendDirection: 1
+  effect: 0
+  effectDamage: 0
+  effectDamageCooldown: 0
+  effectDamageCount: 0
+  effectCooldown: 0
+  effectsCount: 0
+  canFly: 0
+  isFlying: 0
+  canBurrow: 0
+  isBurrowing: 0
+  isAttacking: 0
+  isDefending: 0
+  attack: {fileID: 2373387311158519150, guid: c87f2e93fdf41c14caad4c18f70c52c8, type: 3}
+  weapon: {fileID: 2373387311158519150, guid: c87f2e93fdf41c14caad4c18f70c52c8, type: 3}
+  alt: {fileID: 2242512955055759894, guid: 42de24a3a104d7247af2e865c9c6d977, type: 3}
+  damageBonus: 0
+  defenseBonus: 0
+  crit: 0
+  health: 12
+  hp: 12
+--- !u!114 &4987217647526951397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141257845946725841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f29d0c0ea26d664e8e542dd02e71e94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  notes: []

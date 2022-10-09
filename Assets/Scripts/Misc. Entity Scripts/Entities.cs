@@ -5,7 +5,7 @@ using UnityEngine;
 public class Entities : MonoBehaviour
 {
     public enum Direction { Right, Up, Left, Down, UL, UR, DL, DR };
-    public enum Effect { None, Poison };
+    public enum Effect { None, Poison, Disoriented, Stunned, Skunked };
 
     public Direction direction = Direction.Down;
     public Direction defendDirection = Direction.Up;
@@ -15,9 +15,12 @@ public class Entities : MonoBehaviour
     public float effectDamageCooldown;
     public float effectDamageCount;
     public float effectCooldown;
+    public int effectsCount; //for things like skunked
 
     public bool canFly;
     public bool isFlying = false;
+    public bool canBurrow = false;
+    public bool isBurrowing = false;
     public bool isAttacking = false;
     public bool isDefending = false;
 
@@ -68,8 +71,15 @@ public class Entities : MonoBehaviour
                 }
             }
 
+            else if (effect == Effect.Skunked && effectCooldown <= 0)
+            {
+                effect = Effect.Disoriented;
+                effectCooldown = 3;
+            }
+
             else
             {
+                //Debug.Log(effect);
                 effect = Effect.None;
                 effectCooldown = 0;
                 effectDamage = 0;
@@ -166,7 +176,7 @@ public class Entities : MonoBehaviour
     {
         if (!isDefending)
         {
-            Debug.Log(damage);
+            //Debug.Log(damage);
             damage -= (int)(damage * defenseBonus);
             health -= damage;
         }

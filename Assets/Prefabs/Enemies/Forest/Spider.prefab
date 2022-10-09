@@ -202,6 +202,7 @@ MonoBehaviour:
   effectDamageCooldown: 0
   effectDamageCount: 0
   effectCooldown: 0
+  effectsCount: 0
   canFly: 0
   isFlying: 0
   isAttacking: 0
@@ -212,8 +213,8 @@ MonoBehaviour:
   damageBonus: 0
   defenseBonus: 0
   crit: 0
-  health: 20
-  hp: 20
+  health: 8
+  hp: 8
 --- !u!114 &3343029143972584790
 MonoBehaviour:
   m_ObjectHideFlags: 0
