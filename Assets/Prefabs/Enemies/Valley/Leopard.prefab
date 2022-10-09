@@ -181,6 +181,7 @@ MonoBehaviour:
   abilityChance: 0
   abilityOverload: 0
   altChance: 0
+  altOverload: 0
   hybridAttacker: 0
   canDiag: 0
   special: 
@@ -211,7 +212,7 @@ MonoBehaviour:
   isBurrowing: 0
   isAttacking: 0
   isDefending: 0
-  attack: {fileID: 0}
+  attack: {fileID: 450495423357526433, guid: a629a146bb96c5e46941fe74cc238236, type: 3}
   weapon: {fileID: 450495423357526433, guid: a629a146bb96c5e46941fe74cc238236, type: 3}
   alt: {fileID: 0}
   damageBonus: 0

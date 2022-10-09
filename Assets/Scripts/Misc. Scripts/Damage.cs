@@ -10,6 +10,7 @@ public class Damage : MonoBehaviour
     public enum Type { Melee, Ranged };
     public enum Effect { None, Poison, Disoriented, Stunned, Skunked };
     public Entities attacker;
+    public Entities target;
 
     public Direction direction;// = Direction.Down;
     public Type type;
@@ -52,7 +53,7 @@ public class Damage : MonoBehaviour
         //changeDirection(attacker.GetComponent<Entities>().direction.ToString());
         //Debug.Log(direction);
         //Debug.Log(attacker.GetComponent<Entities>().direction);
-        findAttacker();
+        FindAttacker();
         
 
         damageBoost += attacker.damageBonus + 1;
@@ -143,6 +144,12 @@ public class Damage : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
+
+        if (attacker.isGrappled && !ability)
+        {
+            attacker.FindGrappler().Damage(damage);
+            Destroy(this.gameObject);
+        }
     }
 
     private void TriShot()
@@ -229,7 +236,7 @@ public class Damage : MonoBehaviour
         //Debug.Log("Scream");
         gameObject.transform.Translate(new Vector3(xOffset, yOffset, -1) * speed);
         //Debug.Log(xOffset + "\n" + yOffset);
-        if (count <= 0)
+        if (count <= 0 && special != "Grappler")
         {
             Destroy(this.gameObject);
         }
@@ -275,14 +282,14 @@ public class Damage : MonoBehaviour
 
             dCount = dCooldown;
             //Debug.Log(entity.health);
-            if (special != "Trigger")
+            if (special != "Trigger" && special != "Grappler")
             {
                 Destroy(this.gameObject);
             }
         }
     }
 
-    private void findAttacker()
+    private void FindAttacker()
     {
         Entities attack = null;
         Entities[] entities = FindObjectsOfType<Entities>();

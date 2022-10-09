@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Entities : MonoBehaviour
@@ -23,6 +24,10 @@ public class Entities : MonoBehaviour
     public bool isBurrowing = false;
     public bool isAttacking = false;
     public bool isDefending = false;
+
+    public bool canGrapple;
+    public bool isGrappleing = false;
+    public bool isGrappled;
 
     public GameObject attack;
     public GameObject weapon;
@@ -87,6 +92,64 @@ public class Entities : MonoBehaviour
                 effectDamageCount = 0;
             }
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (canGrapple)
+        {
+            isGrappleing = true;
+            if (collision.GetComponent<Entities>() != null && !collision.GetComponent<Entities>().isGrappled)
+            {
+                collision.GetComponent<Entities>().isGrappled = true;
+            }
+        }
+
+        //if (collision != null && collision.GetComponent<Damage>() != null)
+        //{
+        //    Damage(collision.GetComponent<Damage>().damage);
+        //}
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (canGrapple)
+        {
+            isGrappleing = false;
+            if (collision.GetComponent<Entities>() != null)
+            {
+                collision.GetComponent<Entities>().isGrappled = false;
+            }
+        }
+    }
+
+    public Entities FindGrappler()
+    {
+        Entities grapple = null;
+        Entities[] entities = FindObjectsOfType<Entities>();
+        float closestDistanceSqr = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
+        //Debug.Log(Vector3.zero);
+        foreach (Entities potentialGrappler in entities)
+        {
+            //Debug.Log(potentialGrappler);
+            Transform potentialPosition = potentialGrappler.GetComponent<Transform>();
+            Vector3 directionToTarget = potentialPosition.position - currentPosition;
+            //Debug.Log(directionToTarget);
+            float dSqrToAttacker = directionToTarget.sqrMagnitude;
+            if (potentialGrappler.isGrappleing)
+            {
+                if (dSqrToAttacker < closestDistanceSqr || directionToTarget == Vector3.zero)
+                {
+                    closestDistanceSqr = dSqrToAttacker;
+                    grapple = potentialGrappler;
+                    //Debug.Log(attack.GetComponent<Transform>());
+                    Debug.Log(grapple);
+                }
+            }
+        }
+
+        return grapple;
     }
 
     public void changeDirection(string dir)

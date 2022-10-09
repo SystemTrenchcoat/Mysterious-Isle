@@ -32,6 +32,7 @@ public class Enemy : MonoBehaviour
     public Tilemap paths;
 
     public bool camo;
+    public bool active = true;
     public bool ignoreDistance;
     public bool omniAttacker;
     public bool omniTracker;
@@ -249,9 +250,12 @@ public class Enemy : MonoBehaviour
                             xOffset = Math.Sign(x) * maxAtkDistX;
                             yOffset = Math.Sign(y) * maxAtkDistY;
                             timerA = attackDelay;
-                            if ((hybridAttacker && !inAtkRng) || (inAtkRng && entity.attack.GetComponent<Damage>().special == "Lunge"))
+                            if ((hybridAttacker && !inAtkRng) || (inAtkRng && entity.attack.GetComponent<Damage>().special == "Lunge")
+                                || (!inAtkRng && special == "Create Grapple" && !GameObject.FindGameObjectWithTag("Player").GetComponent<Entities>().isGrappled))
                             {
                                 altOverload = true;
+                                xOffset = playerLocation.x - transform.position.x;
+                                yOffset = playerLocation.y - transform.position.y;
                             }
 
                             //Debug.Log(x + "\n" + y);
@@ -273,6 +277,10 @@ public class Enemy : MonoBehaviour
                             entity.changeDirection(direct);
                             xOffset = Math.Sign(x) * lowestX;
                             yOffset = Math.Sign(y) * lowestY;
+                            if (camo && !active)
+                            {
+                                camo = false;
+                            }
                             //i = 10; //end loop
                             //Debug.Log(xOffset + " " + yOffset);
                         }
@@ -283,7 +291,7 @@ public class Enemy : MonoBehaviour
 
         if (act == Action.Attack)
         {
-            Debug.Log(altOverload);
+            //Debug.Log(altOverload);
             if (entity.isBurrowing)
             {
                 entity.isBurrowing = false;
@@ -316,7 +324,7 @@ public class Enemy : MonoBehaviour
                 }
             }
 
-            if (hybridAttacker || entity.attack.GetComponent<Damage>().special == "Lunge")
+            if (hybridAttacker || entity.attack.GetComponent<Damage>().special == "Lunge" || special == "Create Grapple")
             {
                 altOverload = false;
             }
