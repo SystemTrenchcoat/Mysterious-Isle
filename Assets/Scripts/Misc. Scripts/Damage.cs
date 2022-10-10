@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
 
@@ -76,7 +77,7 @@ public class Damage : MonoBehaviour
             Lunge();
         }
 
-        if (special == "Tri-Shot")
+        else if (special == "Tri-Shot")
         {
             TriShot();
 
@@ -84,7 +85,7 @@ public class Damage : MonoBehaviour
             //instancesYs = ys.ToArray();
         }
 
-        else
+        else if (special != "Targetted")
         {
             for (int i = 0; i < instanceAmount; i++)
             {
@@ -226,6 +227,15 @@ public class Damage : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (special == "Targetted")
+        {
+            instanceX = target.GetComponent<Transform>().position.x - transform.position.x;
+            instanceY = target.GetComponent<Transform>().position.y - transform.position.y;
+            Instantiate(instanceCreated, new Vector3(transform.position.x + instanceX, transform.position.y + instanceY, -1), Quaternion.identity);
+            Debug.Log(instanceCreated);
+            GameObject.Destroy(this);
+        }
+
         if (special == "Rapid Shot")
         {
             if (Input.GetKey(KeyCode.LeftControl))

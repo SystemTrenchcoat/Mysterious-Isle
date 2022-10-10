@@ -26,7 +26,6 @@ public class Entities : MonoBehaviour
     public bool isDefending = false;
 
     public bool canGrapple;
-    public bool isGrappleing = false;
     public bool isGrappled;
 
     public GameObject attack;
@@ -93,51 +92,21 @@ public class Entities : MonoBehaviour
             }
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    public Grappler FindGrappler()
     {
-        if (canGrapple)
-        {
-            isGrappleing = true;
-            if (collision.GetComponent<Entities>() != null && !collision.GetComponent<Entities>().isGrappled)
-            {
-                collision.GetComponent<Entities>().isGrappled = true;
-            }
-        }
-
-        //if (collision != null && collision.GetComponent<Damage>() != null)
-        //{
-        //    Damage(collision.GetComponent<Damage>().damage);
-        //}
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (canGrapple)
-        {
-            isGrappleing = false;
-            if (collision.GetComponent<Entities>() != null)
-            {
-                collision.GetComponent<Entities>().isGrappled = false;
-            }
-        }
-    }
-
-    public Entities FindGrappler()
-    {
-        Entities grapple = null;
-        Entities[] entities = FindObjectsOfType<Entities>();
+        Grappler grapple = null;
+        Grappler[] entities = FindObjectsOfType<Grappler>();
         float closestDistanceSqr = Mathf.Infinity;
         Vector3 currentPosition = transform.position;
         //Debug.Log(Vector3.zero);
-        foreach (Entities potentialGrappler in entities)
+        foreach (Grappler potentialGrappler in entities)
         {
             //Debug.Log(potentialGrappler);
             Transform potentialPosition = potentialGrappler.GetComponent<Transform>();
             Vector3 directionToTarget = potentialPosition.position - currentPosition;
             //Debug.Log(directionToTarget);
             float dSqrToAttacker = directionToTarget.sqrMagnitude;
-            if (potentialGrappler.isGrappleing)
+            if (potentialGrappler.isGrappling)
             {
                 if (dSqrToAttacker < closestDistanceSqr || directionToTarget == Vector3.zero)
                 {

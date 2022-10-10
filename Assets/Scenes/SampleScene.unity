@@ -239,7 +239,7 @@ PrefabInstance:
     - target: {fileID: 6174373487009110187, guid: 17595bd207221884aa1ac551a70dcee2, type: 3}
       propertyPath: attack
       value: 
-      objectReference: {fileID: 5193775608484551499, guid: c5f6403b61d1d0e47a5b095a37593b15, type: 3}
+      objectReference: {fileID: 2920764907616513702, guid: f69725e7210ac214aad889896ae9da10, type: 3}
     - target: {fileID: 6174373487009110187, guid: 17595bd207221884aa1ac551a70dcee2, type: 3}
       propertyPath: health
       value: 5000

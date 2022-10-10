@@ -94,6 +94,10 @@ public class Enemy : MonoBehaviour
         //    nextAction = Action.Defend;
         //    entity.isDefending = true;  
         //}
+        //if (entity.hp <= 0 && special == "Brood")
+        //{
+
+        //}
         entity.isAttacking = false;
         playerLocation = GameObject.FindGameObjectWithTag("Player").transform.position;
         
@@ -124,7 +128,8 @@ public class Enemy : MonoBehaviour
                     entity.isAttacking = true;
                     //Debug.Log(xOffset + "\n" + yOffset);
 
-                    Instantiate(instance, new Vector3(transform.position.x + xOffset, transform.position.y + yOffset, -1), Quaternion.identity);
+                    var attack = Instantiate(instance, new Vector3(transform.position.x + xOffset, transform.position.y + yOffset, -1), Quaternion.identity);
+                    attack.GetComponent<Damage>().target = GameObject.FindGameObjectWithTag("Player").GetComponent<Entities>();
                 }
 
                 //gradually moves enemy to location
@@ -235,15 +240,18 @@ public class Enemy : MonoBehaviour
             else
             {
                 var collider = Physics2D.OverlapCircle(check, .5f);
+                //Debug.Log(collider);
                 //is the next position occupied by anyone? if yes, player or enemy? if player, change to attack, if enemy, return current position, if neither, return next coordinate
-                if (collider != null && collider.GetComponent<BoxCollider2D>() != null && collider.GetComponent<BoxCollider2D>())// != rb.GetComponent<BoxCollider2D>())
+                if (collider != null && collider.GetComponent<BoxCollider2D>() != null)// && collider.GetComponent<BoxCollider2D>())// != rb.GetComponent<BoxCollider2D>())
                 {
                     //Debug.Log("Something near...");
-                    if (collider.CompareTag("Player") && timerA <= 0)
+                    if (collider.CompareTag("Player") && timerA <= 0
+                        || collider.GetComponent<Grappler>() != null && collider.GetComponent<Grappler>().isGrappling)
                     {
                         //Debug.Log(Math.Abs(check.x - transform.position.x) + "\n" + Math.Abs(check.y - transform.position.y));
                         bool inAtkRng = Math.Abs(check.x - transform.position.x) <= maxAtkDistX && Math.Abs(check.y - transform.position.y) <= maxAtkDistY;
-                        if ((inAtkRng || ignoreDistance))
+                        if (inAtkRng || ignoreDistance
+                            || (special == "Create Grapple" && !GameObject.FindGameObjectWithTag("Player").GetComponent<Entities>().isGrappled))
                         {
                             act = Action.Attack;
                             entity.changeDirection(direct);
@@ -261,7 +269,7 @@ public class Enemy : MonoBehaviour
                             //Debug.Log(x + "\n" + y);
                             //Debug.Log(xOffset + "\n" + yOffset);
                             //i = 10; //end loop
-                            //Debug.Log("Next action: Attack") ;
+                            Debug.Log("Next action: Attack") ;
                         }
 
                         else if (canDefend && !inAtkRng)
@@ -270,7 +278,8 @@ public class Enemy : MonoBehaviour
                             //Debug.Log("Next action: Defend");
                         }
 
-                        else
+                        else if (collider != null && 
+                            next != new Vector3(collider.transform.position.x, collider.transform.position.y, next.z))
                         {
                             act = Action.Move;
                             skip = true;
@@ -282,7 +291,7 @@ public class Enemy : MonoBehaviour
                                 camo = false;
                             }
                             //i = 10; //end loop
-                            //Debug.Log(xOffset + " " + yOffset);
+                            Debug.Log(xOffset + " " + yOffset);
                         }
                     }
                 }
@@ -400,8 +409,9 @@ public class Enemy : MonoBehaviour
         {
             //Debug.Log("No wall\n" + i);
             var collider = Physics2D.OverlapCircle(check, .5f);
+            //Debug.Log(collider);
             //is the next position occupied by anyone? if yes, player or enemy? if player, change to attack, if enemy, return current position, if neither, return next coordinate
-            if (collider != null && collider.GetComponent<BoxCollider2D>() != null && collider.GetComponent<BoxCollider2D>())// != rb.GetComponent<BoxCollider2D>())
+            if (collider != null && collider.GetComponent<BoxCollider2D>() != null)// && collider.GetComponent<BoxCollider2D>())// != rb.GetComponent<BoxCollider2D>())
             {
                 //Debug.Log("Something near...");
 
