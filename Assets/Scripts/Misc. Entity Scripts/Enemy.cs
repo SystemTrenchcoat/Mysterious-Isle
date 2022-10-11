@@ -40,17 +40,18 @@ public class Enemy : MonoBehaviour
     public float xOffset = 0;
     public float yOffset = -1f;
 
-    public int[] xs = {1, 0, -1, 0, 2, 0, -2, 0 };
-    public int[] ys = {0, 1, 0, -1, 0, 2, 0, -2 };
+    //public int[] xs = {1, 0, -1, 0, 2, 0, -2, 0 };
+    //public int[] ys = {0, 1, 0, -1, 0, 2, 0, -2 };
 
+    public int checkRadius = 2;
     public int lowestX = 1;
     public int lowestY = 1;
 
     public float maxAtkDistX = 1;
     public float maxAtkDistY = 1;
 
-    public int[] noX;
-    public int[] noY;
+    //public int[] noX;
+    //public int[] noY;
 
     public int numActions = 1;
     public int actionsRemaining = 1;
@@ -178,120 +179,107 @@ public class Enemy : MonoBehaviour
 
         //string[] directions = { "Down", "Up", "Right", "Left"};
 
-        for (int i = 0; i < xs.Length; i++)
+        for (int x = -checkRadius; x <= checkRadius; x++)
         {
-            canMove = true;
-
-            int x = xs[i];
-            int y = ys[i];
-            int direct = i;
-            if (!canDiag)
+            for (int y = -checkRadius; y <= checkRadius; y++)
             {
-                while (direct > 3)
+                canMove = true;
+
+                if (!canDiag && Math.Sign(x) != 0 && Math.Sign(y) != 0
+                    || (x < lowestX - 1 || y < lowestY - 1)
+                    || (special == "Only Diag" && (x == 0 || y == 0)))
                 {
-                    direct -= 4;
+                    canMove = false;
                 }
-            }
+                //if (noX.Contains<int>(Math.Abs(x)))
+                //{
+                //    canMove = false;
+                //}
+                //if (noY.Contains<int>(Math.Abs(y)))
+                //{
+                //    canMove = false;
+                //}
 
-            else if (special == "Only Diag")
-            {
-                while (direct < 4)
+                check = new Vector3(transform.position.x + x, transform.position.y + y, 0);
+                next = new Vector3(transform.position.x + (Math.Sign(x) * lowestX), transform.position.y + (Math.Sign(y) * lowestY), 0);
+
+
+
+                if (canMove)
                 {
-                    direct += 4;
+                    canMove = CheckLocation(check, next);
                 }
 
-                while (direct > 7)
+                if (canMove)
                 {
-                    direct -= 4;
+                    locations.Add(next);
                 }
-            }
 
-            else
-            {
-                while (direct > 7)
+                else
                 {
-                    direct -= 8;
-                }
-            }
-
-            if (noX.Contains<int>(Math.Abs(x)))
-            {
-                canMove = false;
-            }
-            if (noY.Contains<int>(Math.Abs(y)))
-            {
-                canMove = false;
-            }
-
-            //Debug.Log(Mathf.Sign(x)+ " " + Mathf.Sign(y));
-            check = new Vector3(transform.position.x + x, transform.position.y + y, 0);
-            next = new Vector3(transform.position.x + (Math.Sign(x) * lowestX), transform.position.y + (Math.Sign(y) * lowestY), 0);
-
-            if (canMove)
-            {
-                canMove = CheckLocation(check, next);
-            }
-
-            if (canMove)
-            {
-                locations.Add(next);
-            }
-
-            else
-            {
-                var collider = Physics2D.OverlapCircle(check, .5f);
-                //Debug.Log(collider);
-                //is the next position occupied by anyone? if yes, player or enemy? if player, change to attack, if enemy, return current position, if neither, return next coordinate
-                if (collider != null && collider.GetComponent<BoxCollider2D>() != null)// && collider.GetComponent<BoxCollider2D>())// != rb.GetComponent<BoxCollider2D>())
-                {
-                    //Debug.Log("Something near...");
-                    if (collider.CompareTag("Player") && timerA <= 0
-                        || collider.GetComponent<Grappler>() != null && collider.GetComponent<Grappler>().isGrappling)
+                    var collider = Physics2D.OverlapCircle(check, .5f);
+                    //Debug.Log(collider);
+                    //is the next position occupied by anyone? if yes, player or enemy? if player, change to attack, if enemy, return current position, if neither, return next coordinate
+                    if (collider != null && collider.GetComponent<BoxCollider2D>() != null)// && collider.GetComponent<BoxCollider2D>())// != rb.GetComponent<BoxCollider2D>())
                     {
-                        //Debug.Log(Math.Abs(check.x - transform.position.x) + "\n" + Math.Abs(check.y - transform.position.y));
-                        bool inAtkRng = Math.Abs(check.x - transform.position.x) <= maxAtkDistX && Math.Abs(check.y - transform.position.y) <= maxAtkDistY;
-                        if (inAtkRng || ignoreDistance
-                            || (special == "Create Grapple" && !GameObject.FindGameObjectWithTag("Player").GetComponent<Entities>().isGrappled))
+                        //Debug.Log("Something near...");
+                        if (collider.CompareTag("Player") && timerA <= 0
+                            || collider.GetComponent<Grappler>() != null && collider.GetComponent<Grappler>().isGrappling)
                         {
-                            act = Action.Attack;
-                            entity.changeDirection(direct);
-                            xOffset = Math.Sign(x) * maxAtkDistX;
-                            yOffset = Math.Sign(y) * maxAtkDistY;
-                            timerA = attackDelay;
-                            if ((hybridAttacker && !inAtkRng) || (inAtkRng && entity.attack.GetComponent<Damage>().special == "Lunge")
-                                || (!inAtkRng && special == "Create Grapple" && !GameObject.FindGameObjectWithTag("Player").GetComponent<Entities>().isGrappled))
+                            //Debug.Log(Math.Abs(check.x - transform.position.x) + "\n" + Math.Abs(check.y - transform.position.y));
+                            bool inAtkRng = Math.Abs(check.x - transform.position.x) <= maxAtkDistX && Math.Abs(check.y - transform.position.y) <= maxAtkDistY;
+                            if (inAtkRng || ignoreDistance
+                                || (special == "Create Grapple" && !GameObject.FindGameObjectWithTag("Player").GetComponent<Entities>().isGrappled))
                             {
-                                altOverload = true;
-                                xOffset = playerLocation.x - transform.position.x;
-                                yOffset = playerLocation.y - transform.position.y;
+                                act = Action.Attack;
+                                xOffset = Math.Sign(x) * maxAtkDistX;
+                                yOffset = Math.Sign(y) * maxAtkDistY;
+                                entity.changeDirection(Math.Sign(xOffset), Math.Sign(yOffset));
+                                timerA = attackDelay;
+                                if ((hybridAttacker && !inAtkRng) || (inAtkRng && entity.attack.GetComponent<Damage>().special == "Lunge")
+                                    || (!inAtkRng && special == "Create Grapple" && !GameObject.FindGameObjectWithTag("Player").GetComponent<Entities>().isGrappled))
+                                {
+                                    altOverload = true;
+                                    xOffset = playerLocation.x - transform.position.x;
+                                    yOffset = playerLocation.y - transform.position.y;
+                                }
+
+                                //Debug.Log(x + "\n" + y);
+                                //Debug.Log(xOffset + "\n" + yOffset);
+                                //i = 10; //end loop
+                                Debug.Log("Next action: Attack");
                             }
 
-                            //Debug.Log(x + "\n" + y);
-                            //Debug.Log(xOffset + "\n" + yOffset);
-                            //i = 10; //end loop
-                            Debug.Log("Next action: Attack") ;
-                        }
-
-                        else if (canDefend && !inAtkRng)
-                        {
-                            act = Action.Defend;
-                            //Debug.Log("Next action: Defend");
-                        }
-
-                        else if (collider != null && 
-                            next != new Vector3(collider.transform.position.x, collider.transform.position.y, next.z))
-                        {
-                            act = Action.Move;
-                            skip = true;
-                            entity.changeDirection(direct);
-                            xOffset = Math.Sign(x) * lowestX;
-                            yOffset = Math.Sign(y) * lowestY;
-                            if (camo && !active)
+                            else if (canDefend && !inAtkRng)
                             {
-                                camo = false;
+                                act = Action.Defend;
+                                //Debug.Log("Next action: Defend");
                             }
-                            //i = 10; //end loop
-                            Debug.Log(xOffset + " " + yOffset);
+
+                            else if (collider != null &&
+                                next != new Vector3(collider.transform.position.x, collider.transform.position.y, next.z))
+                            {
+                                act = Action.Move;
+                                skip = true;
+                                xOffset = Math.Sign(x) * lowestX;
+                                yOffset = Math.Sign(y) * lowestY;
+                                if (!canDiag && Math.Sign(xOffset) != 0 && Math.Sign(yOffset) != 0)
+                                {
+                                    switch(Random.Range(1,3))
+                                    {
+                                        case 1: xOffset = 0; break;
+                                        
+                                        case 2: yOffset = 0; break;
+                                    }
+                                }
+                                entity.changeDirection(Math.Sign(xOffset), Math.Sign(yOffset));
+                                if (camo && !active)
+                                {
+                                    camo = false;
+                                }
+                                //i = 10; //end loop
+                                Debug.Log(xOffset + " " + yOffset);
+                            }
                         }
                     }
                 }
@@ -354,25 +342,10 @@ public class Enemy : MonoBehaviour
             {
                 //Debug.Log(xOffset + " " + yOffset);
                 nextLocation = locations[Random.Range(0, locations.Count)];
-                int direct = locations.IndexOf(nextLocation);
-                if (!canDiag)
-                {
-                    while (direct > 3)
-                    {
-                        direct -= 4;
-                    }
-                }
 
-                else
-                {
-                    while (direct > 7)
-                    {
-                        direct -= 8;
-                    }
-                }
-                entity.changeDirection(direct);
                 xOffset = nextLocation.x - transform.position.x;
                 yOffset = nextLocation.y - transform.position.y;
+                entity.changeDirection(Math.Sign(xOffset), Math.Sign(yOffset));
             }
             else
             {

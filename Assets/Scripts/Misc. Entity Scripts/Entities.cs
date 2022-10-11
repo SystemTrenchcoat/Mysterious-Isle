@@ -170,6 +170,42 @@ public class Entities : MonoBehaviour
         direction = (Direction)dir;
     }
 
+    public void changeDirection(int x, int y)
+    {
+        if (x == 0 && y == 1)
+        {
+            direction = Direction.Up;
+        }
+        else if (x == 1 && y == 1)
+        {
+            direction = Direction.UR;
+        }
+        else if (x == 1 && y == 0)
+        {
+            direction = Direction.Right;
+        }
+        else if (x == 1 && y == -1)
+        {
+            direction = Direction.DR;
+        }
+        else if (x == 0 && y == -1)
+        {
+            direction = Direction.Down;
+        }
+        else if (x == -1 && y == -1)
+        {
+            direction = Direction.DL;
+        }
+        else if (x == -1 && y == 0)
+        {
+            direction = Direction.Left;
+        }
+        else if (x == -1 && y == 1)
+        {
+            direction = Direction.UL;
+        }
+    }
+
     public int defendDirectionOffsetX()
     {
         int off = 0;
@@ -211,6 +247,19 @@ public class Entities : MonoBehaviour
             //Debug.Log(damage);
             damage -= (int)(damage * defenseBonus);
             health -= damage;
+        }
+    }
+
+    public void Heal(int heal)
+    {
+        if (health + heal <= hp)
+        {
+            health += heal;
+        }
+
+        else
+        {
+            health = hp;
         }
     }
 
