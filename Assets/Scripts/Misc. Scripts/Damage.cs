@@ -18,7 +18,7 @@ public class Damage : MonoBehaviour
     public Effect effect;
 
     public GameObject instanceCreated;
-    public int instanceAmount;
+    public int instanceAmount = 1;
     public float instanceX;
     public float instanceY;
     public float[] instancesXs;
