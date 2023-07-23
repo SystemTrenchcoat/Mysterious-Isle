@@ -28,7 +28,7 @@ public class ObjectInstantiator : ObjectInstantiatorAbstract
 
         for (int i = 0; i < amount; i++)
         {
-            Vector3Int next = new Vector3Int(Random.Range(-1 * radius, radius + 1), Random.Range(-1 * radius, radius + 1), 0);
+            Vector3Int next = new Vector3Int(Random.Range(-1 * radius, radius + 1), Random.Range(-1 * radius, radius + 1), -1);
 
             Vector3Int barrierMapTile = barriers.WorldToCell(next);
             Vector3Int dangerMapTile = dangers.WorldToCell(next);
@@ -39,7 +39,7 @@ public class ObjectInstantiator : ObjectInstantiatorAbstract
             while (!(barriers.GetTile(barrierMapTile) == null && (dangers.GetTile(dangerMapTile) != null || paths.GetTile(pathMapTile))
                 && (collider == null || collider != null && collider.GetComponent<BoxCollider2D>() != null)))
             {
-                next = new Vector3Int(Random.Range(0, radius), Random.Range(0, radius), 0);
+                next = new Vector3Int(Random.Range(0, radius), Random.Range(0, radius), -1);
 
                 barrierMapTile = barriers.WorldToCell(next);
                 dangerMapTile = dangers.WorldToCell(next);
@@ -48,7 +48,7 @@ public class ObjectInstantiator : ObjectInstantiatorAbstract
                 collider = Physics2D.OverlapCircle(new Vector2(next.x, next.y), .5f);
             }
 
-            Debug.Log("x: " + next.x + "\ny: " + next.y);
+            Debug.Log("x: " + next.x + "\ny: " + next.y + "\nz: " + next.z);
             producedObjects[i] = Instantiate(entities[Random.Range(0, entities.Length)], next, Quaternion.identity);
         }
     }
