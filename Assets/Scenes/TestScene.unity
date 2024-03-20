@@ -180,11 +180,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38d3991ea1ca5154487db86e4e181d4c, type: 3}
---- !u!1 &66252392 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2587999759752304470, guid: 38d3991ea1ca5154487db86e4e181d4c, type: 3}
-  m_PrefabInstance: {fileID: 66252391}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &290435196
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,15 +209,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a21beddb6e337142b951ae2537aadfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entities:
-  - {fileID: 7798904771553151287, guid: ceff6e69f26bb284b82e3316b57e6504, type: 3}
-  - {fileID: 66252392}
-  - {fileID: 5628677855138564183, guid: 18454469571d3f34f8f77c514b9ac060, type: 3}
+  info: {fileID: 0}
   dangers: {fileID: 1690904530}
   barriers: {fileID: 1936438335}
   paths: {fileID: 1481050522}
-  radius: 20
-  amount: 20
   producedObjects:
   - {fileID: 0}
   - {fileID: 0}
@@ -356,6 +346,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e01fdc80ff06f848b4c885afc34d269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyGenerator: {fileID: 0}
+  levelGenerator: {fileID: 0}
+  enemyParameters: []
+  levelParameters: []
+  bossRoomParameters: []
+  forestEnemies: []
+  forestBosses: []
+  valleyEnemies: []
+  valleyBosses: []
+  mountainEnemies: []
+  mountainBosses: []
+  caveEnemies: []
   player: {fileID: 0}
 --- !u!1 &621266911
 GameObject:
@@ -3365,6 +3367,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3086728477555396876, guid: 1ce819f7cdf0cb2428938f5ebca2148f, type: 3}
       propertyPath: m_Name
+      value: Goal
+      objectReference: {fileID: 0}
+    - target: {fileID: 3086728477555396876, guid: 1ce819f7cdf0cb2428938f5ebca2148f, type: 3}
+      propertyPath: m_TagString
       value: Goal
       objectReference: {fileID: 0}
     m_RemovedComponents: []

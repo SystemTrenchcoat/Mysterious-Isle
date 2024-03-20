@@ -166,14 +166,11 @@ MonoBehaviour:
   omniTracker: 0
   xOffset: 0
   yOffset: -1
-  xs: 0100000000000000ffffffff000000000200000000000000feffffff00000000
-  ys: 000000000100000000000000ffffffff000000000200000000000000feffffff
+  checkRadius: 2
   lowestX: 1
   lowestY: 1
   maxAtkDistX: 1
   maxAtkDistY: 1
-  noX: 
-  noY: 
   numActions: 8
   actionsRemaining: 8
   visualDelay: 0.25
@@ -214,7 +211,6 @@ MonoBehaviour:
   isAttacking: 0
   isDefending: 0
   canGrapple: 0
-  isGrappleing: 0
   isGrappled: 0
   attack: {fileID: 5738108727911690504, guid: ac042b3e303b38c439b8f8701e314411, type: 3}
   weapon: {fileID: 5738108727911690504, guid: ac042b3e303b38c439b8f8701e314411, type: 3}
@@ -222,8 +218,8 @@ MonoBehaviour:
   damageBonus: 0
   defenseBonus: 0.35
   crit: 0
-  health: 30
-  hp: 30
+  health: 50
+  hp: 50
 --- !u!114 &416219904410134390
 MonoBehaviour:
   m_ObjectHideFlags: 0

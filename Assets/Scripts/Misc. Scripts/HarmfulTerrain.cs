@@ -41,7 +41,7 @@ public class HarmfulTerrain : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Debug.Log("Damage");
+        Debug.Log("Damage");
 
         if (collision.GetComponent<Entities>() != null)
         {

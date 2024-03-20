@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3f5ca4308effc0c4caa675062d51c44c, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -159,19 +159,18 @@ MonoBehaviour:
   dangers: {fileID: 0}
   barriers: {fileID: 0}
   paths: {fileID: 0}
+  camo: 0
+  active: 1
   ignoreDistance: 0
   omniAttacker: 0
   omniTracker: 0
   xOffset: 0
   yOffset: -1
-  xs: 0100000000000000ffffffff00000000ffffffff01000000ffffffff010000000200000000000000feffffff00000000feffffff02000000feffffff02000000
-  ys: 000000000100000000000000ffffffff0100000001000000ffffffffffffffff000000000200000000000000feffffff0200000002000000fefffffffeffffff
+  checkRadius: 2
   lowestX: 1
   lowestY: 1
   maxAtkDistX: 1
   maxAtkDistY: 1
-  noX: 
-  noY: 
   numActions: 1
   actionsRemaining: 1
   visualDelay: 0.5
@@ -180,6 +179,8 @@ MonoBehaviour:
   abilityChance: 0
   abilityOverload: 0
   altChance: 50
+  altOverload: 0
+  hybridAttacker: 0
   canDiag: 1
   special: 
   instance: {fileID: 0}
@@ -205,8 +206,12 @@ MonoBehaviour:
   effectsCount: 0
   canFly: 0
   isFlying: 0
+  canBurrow: 0
+  isBurrowing: 0
   isAttacking: 0
   isDefending: 0
+  canGrapple: 0
+  isGrappled: 0
   attack: {fileID: 2232219917897369427, guid: cd7e7c98267fde5468ec40fa13a61478, type: 3}
   weapon: {fileID: 2232219917897369427, guid: cd7e7c98267fde5468ec40fa13a61478, type: 3}
   alt: {fileID: 20779343484320234, guid: 4ab40f29df8344945acddc44492fa337, type: 3}

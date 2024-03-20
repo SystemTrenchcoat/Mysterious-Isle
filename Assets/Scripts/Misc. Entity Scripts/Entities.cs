@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class Entities : MonoBehaviour
 {
@@ -56,6 +57,14 @@ public class Entities : MonoBehaviour
         //Debug.Log(health);
         if (health <= 0)
         {
+            if(GetComponent<Enemy>() != null)
+            {
+                if(GetComponent<Enemy>().special == "Brood")
+                {
+                    Debug.Log("Birth");
+                    Instantiate(alt, transform.position, transform.rotation);
+                }
+            }
             Destroy(this.gameObject);
         }
 

@@ -10,6 +10,10 @@ public class SimpleRandomWalkGenerator : AbstractDungeonGenerator
     [SerializeField]
     private SimpleRandomWalkSO randomWalkParameters;
 
+    public void ChangeParameters(SimpleRandomWalkSO parameters)
+    {
+        randomWalkParameters = parameters;
+    }
 
     protected override void RunProceduralGeneration()
     {
@@ -46,7 +50,7 @@ public class SimpleRandomWalkGenerator : AbstractDungeonGenerator
                 if (i == randomWalkParameters.iterations - 1)
                 {
                     Debug.Log("Goal");
-                    roomMarkers.Add(path.ElementAt(path.Count - 1));
+                    roomMarkers.Add(currentPosition);
                 }
 
                 if (randomWalkParameters.startRandomlyEachIteration)

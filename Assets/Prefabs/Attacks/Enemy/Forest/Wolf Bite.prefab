@@ -99,15 +99,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attacker: {fileID: 0}
+  target: {fileID: 0}
   direction: 0
   type: 0
   effect: 0
   instanceCreated: {fileID: 0}
   instanceAmount: 0
-  special: 
-  needAttackerDirection: 0
+  instanceX: 0
+  instanceY: 0
   instancesXs: []
   instancesYs: []
+  special: 
+  needAttacker: 1
+  needAttackerDirection: 0
+  trigger: 0
+  ability: 0
   effectDamage: 0
   effectDuration: 0
   effectDamageCooldown: 0
@@ -139,7 +145,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.56, y: 2.56}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 2.56, y: 2.56}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

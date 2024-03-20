@@ -111,6 +111,7 @@ MonoBehaviour:
   instancesXs: []
   instancesYs: []
   special: Grappler
+  needAttacker: 1
   needAttackerDirection: 0
   trigger: 0
   ability: 0

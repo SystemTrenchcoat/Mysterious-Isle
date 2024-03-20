@@ -99,17 +99,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attacker: {fileID: 0}
+  target: {fileID: 0}
   direction: 0
-  type: 0
+  type: 2
   effect: 0
   instanceCreated: {fileID: 0}
   instanceAmount: 3
+  instanceX: 0
+  instanceY: 0
+  instancesXs: []
+  instancesYs: []
   special: Tri-Shot
+  needAttacker: 1
   needAttackerDirection: 1
   trigger: 0
   ability: 1
-  instancesXs: []
-  instancesYs: []
   effectDamage: 0
   effectDuration: 0
   effectDamageCooldown: 0

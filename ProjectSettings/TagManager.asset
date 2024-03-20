@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Walkable
   - Collectable
+  - Goal
   layers:
   - Default
   - TransparentFX

@@ -5,5 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ObjectInstantiatorParameters", menuName = "Procedural Generation")]
 public class ObjectInstatiatorInfo : ScriptableObject
 {
-    public int radius = 60, amount = 10;
+    public GameObject[] entities;
+    public int radius = 20, amount = 10;
 }

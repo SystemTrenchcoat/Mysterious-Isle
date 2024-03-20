@@ -159,19 +159,18 @@ MonoBehaviour:
   dangers: {fileID: 0}
   barriers: {fileID: 0}
   paths: {fileID: 0}
+  camo: 0
+  active: 1
   ignoreDistance: 1
   omniAttacker: 0
   omniTracker: 0
   xOffset: 0
   yOffset: -1
-  xs: 0100000000000000ffffffff000000000400000000000000feffffff00000000
-  ys: 000000000100000000000000ffffffff000000000200000000000000feffffff
+  checkRadius: 2
   lowestX: 1
   lowestY: 1
   maxAtkDistX: 1
   maxAtkDistY: 1
-  noX: 
-  noY: 
   numActions: 1
   actionsRemaining: 1
   visualDelay: 0.5
@@ -180,6 +179,8 @@ MonoBehaviour:
   abilityChance: 0
   abilityOverload: 0
   altChance: 0
+  altOverload: 0
+  hybridAttacker: 0
   canDiag: 0
   special: 
   instance: {fileID: 0}
@@ -205,8 +206,12 @@ MonoBehaviour:
   effectsCount: 0
   canFly: 0
   isFlying: 0
+  canBurrow: 0
+  isBurrowing: 0
   isAttacking: 0
   isDefending: 0
+  canGrapple: 0
+  isGrappled: 0
   attack: {fileID: 8805123983224833624, guid: 172d9bbc8c92eb7468a392e0fcb9a1e1, type: 3}
   weapon: {fileID: 8805123983224833624, guid: 172d9bbc8c92eb7468a392e0fcb9a1e1, type: 3}
   alt: {fileID: 0}

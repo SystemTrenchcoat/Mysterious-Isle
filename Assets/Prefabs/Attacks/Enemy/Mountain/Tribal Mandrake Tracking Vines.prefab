@@ -110,6 +110,7 @@ MonoBehaviour:
   instancesXs: []
   instancesYs: []
   special: Targetted
+  needAttacker: 1
   needAttackerDirection: 0
   trigger: 0
   ability: 1

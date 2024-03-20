@@ -8,7 +8,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 public class Damage : MonoBehaviour
 {
     public enum Direction { Right, Up, Left, Down, UL, UR, DL, DR };
-    public enum Type { Melee, Ranged };
+    public enum Type { Melee, Ranged, Instantiator, Spawn };
     public enum Effect { None, Poison, Disoriented, Stunned, Skunked };
     public Entities attacker;
     public Entities target;
@@ -25,6 +25,7 @@ public class Damage : MonoBehaviour
     public float[] instancesYs;
 
     public string special;
+    public bool needAttacker = true;
     public bool needAttackerDirection;
     public bool trigger;
     public bool ability;
@@ -54,8 +55,19 @@ public class Damage : MonoBehaviour
         //changeDirection(attacker.GetComponent<Entities>().direction.ToString());
         //Debug.Log(direction);
         //Debug.Log(attacker.GetComponent<Entities>().direction);
+
+        if(!needAttacker)
+        {
+            if (type == Type.Spawn)
+            {
+                Spawn();
+            }
+            Destroy(gameObject);
+        }
+
         FindAttacker();
-        
+
+        //Debug.Log(attacker);
 
         damageBoost += attacker.damageBonus + 1;
         critChance = attacker.crit;
@@ -222,6 +234,57 @@ public class Damage : MonoBehaviour
             attack.GetComponent<Damage>().damageBoost -= (float).25;
             count = cooldown;
         }
+    }
+
+    private void Spawn()
+    {
+        float xs;// = new List<float>();
+        float ys;// = new List<float>();
+
+        int originalDirection = 0;
+
+        for (int i = 1; i <= instanceAmount; i++)
+        {
+            int ind = i;
+
+            while (ind > 4)
+            {
+                ind -= 4;
+            }
+
+            int off = (ind % 2 == 1) ?
+                ind / 2 * -1 :
+                ind / 2;
+
+            int newDirection = (int)originalDirection + off;
+            //attacker.changeDirection(newDirection);
+            //Debug.Log(attacker.direction);
+
+
+            while (newDirection > 3)
+            {
+                newDirection -= 4;
+            }
+            while (newDirection < 0)
+            {
+                newDirection += 4;
+            }
+            changeDirection(newDirection);
+            //Debug.Log(direction);
+
+            xs = changeXOffset();
+            ys = changeYOffset();
+
+            //Debug.Log("X: " + transform.position.x + "\nY: " + transform.position.y);
+
+            var summoned = Instantiate(instanceCreated, new Vector3(transform.position.x + xs, transform.position.y + ys, -1), Quaternion.identity);
+            
+            //summoned.GetComponent<Enemy>().special = "";
+            //Debug.Log(shot.GetComponent<Damage>().direction);
+            //changeDirection(originalDirection);
+        }
+
+        Destroy(this.gameObject);
     }
 
     // Update is called once per frame

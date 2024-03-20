@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 34365877b9179d544bbb76d91407440f, type: 3}
-  m_Name: Area
+  m_Name: BIIIIIIIG ROOM
   m_EditorClassIdentifier: 
-  iterations: 20
-  walkLength: 60
-  rooms: 7
-  roomSeperation: 40
+  iterations: 82
+  walkLength: 235
+  rooms: 1
+  roomSeperation: 20
   pathWalk: 4
-  dangerMin: 8
-  dangerMax: 10
-  pathThickness: 2
-  pathDangerChance: 0.05
-  areaDangerChance: 0.1
-  startRandomlyEachIteration: 0
+  dangerMin: 0
+  dangerMax: 2
+  pathThickness: 0.5
+  pathDangerChance: 0.3
+  areaDangerChance: 0.001
+  startRandomlyEachIteration: 1

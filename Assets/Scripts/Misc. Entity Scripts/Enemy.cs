@@ -67,6 +67,8 @@ public class Enemy : MonoBehaviour
     public bool canDiag = false;
     public string special;
 
+    public int attackCooldown;
+
     public GameObject instance;
 
     // Start is called before the first frame update
@@ -78,6 +80,14 @@ public class Enemy : MonoBehaviour
         dangers = GameObject.Find("Dangers").GetComponent<Tilemap>();
         barriers = GameObject.Find("Barriers").GetComponent<Tilemap>();
         paths = GameObject.Find("Paths").GetComponent<Tilemap>();
+
+        if (special == "spawn")
+        {
+            //attackCooldown = 1;
+            //entity.isAttacking = true;
+            Instantiate(entity.alt, transform.position, transform.rotation);
+            //entity.isAttacking = false;
+        }
     }
 
     // Update is called once per frame
@@ -95,11 +105,11 @@ public class Enemy : MonoBehaviour
         //    nextAction = Action.Defend;
         //    entity.isDefending = true;  
         //}
-        //if (entity.hp <= 0 && special == "Brood")
-        //{
+        if (attackCooldown <= 0)
+            entity.isAttacking = false;
+        else
+            attackCooldown -= 1;
 
-        //}
-        entity.isAttacking = false;
         playerLocation = GameObject.FindGameObjectWithTag("Player").transform.position;
         
         if (entity.isDefending)
@@ -185,8 +195,9 @@ public class Enemy : MonoBehaviour
             {
                 canMove = true;
 
+                //check if enemy can move in this way
                 if (!canDiag && Math.Sign(x) != 0 && Math.Sign(y) != 0
-                    || (x < lowestX - 1 || y < lowestY - 1)
+                    //|| (x < lowestX - 1 || y < lowestY - 1)
                     || (special == "Only Diag" && (x == 0 || y == 0)))
                 {
                     canMove = false;
@@ -202,8 +213,9 @@ public class Enemy : MonoBehaviour
 
                 check = new Vector3(transform.position.x + x, transform.position.y + y, 0);
                 next = new Vector3(transform.position.x + (Math.Sign(x) * lowestX), transform.position.y + (Math.Sign(y) * lowestY), 0);
-
-
+                //Debug.Log("Check: " + check);
+                //Debug.Log("Next: " + next);
+                //Debug.Log(canMove);
 
                 if (canMove)
                 {
@@ -213,6 +225,7 @@ public class Enemy : MonoBehaviour
                 if (canMove)
                 {
                     locations.Add(next);
+                    //Debug.Log("True");
                 }
 
                 else
@@ -278,7 +291,7 @@ public class Enemy : MonoBehaviour
                                     camo = false;
                                 }
                                 //i = 10; //end loop
-                                Debug.Log(xOffset + " " + yOffset);
+                                //Debug.Log(xOffset + " " + yOffset);
                             }
                         }
                     }
@@ -340,12 +353,14 @@ public class Enemy : MonoBehaviour
         {
             if (locations.Count > 0)
             {
-                //Debug.Log(xOffset + " " + yOffset);
+                
                 nextLocation = locations[Random.Range(0, locations.Count)];
 
                 xOffset = nextLocation.x - transform.position.x;
                 yOffset = nextLocation.y - transform.position.y;
                 entity.changeDirection(Math.Sign(xOffset), Math.Sign(yOffset));
+                //Debug.Log(xOffset + " " + yOffset);
+                //Debug.Log(locations.Count);
             }
             else
             {
@@ -378,21 +393,21 @@ public class Enemy : MonoBehaviour
         Vector3Int pathMapTile = barriers.WorldToCell(next);
 
         //is next tile a wall? if no, return coordinate, if yes, return current position
-        if (barriers.GetTile(barrierMapTile) == null && (dangers.GetTile(dangerMapTile) != null || paths.GetTile(pathMapTile)))
+        if (barriers.GetTile(barrierMapTile) == null && (dangers.GetTile(dangerMapTile) != null || paths.GetTile(pathMapTile) != null))
         {
-            //Debug.Log("No wall\n" + i);
+            //Debug.Log("No wall\n");
             var collider = Physics2D.OverlapCircle(check, .5f);
             //Debug.Log(collider);
             //is the next position occupied by anyone? if yes, player or enemy? if player, change to attack, if enemy, return current position, if neither, return next coordinate
             if (collider != null && collider.GetComponent<BoxCollider2D>() != null)// && collider.GetComponent<BoxCollider2D>())// != rb.GetComponent<BoxCollider2D>())
             {
-                //Debug.Log("Something near...");
+               //Debug.Log("Something near...");
 
                 canMove = false;
             }
         }
 
-        else
+        else if (barriers.GetTile(barrierMapTile) == null)
         {
             canMove = false;
             //Debug.Log("There's a wall");

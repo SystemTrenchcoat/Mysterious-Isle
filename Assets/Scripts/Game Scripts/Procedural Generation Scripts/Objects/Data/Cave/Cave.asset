@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b5e218bfea29fc438c51bfc6a5b4cd2, type: 3}
+  m_Name: Cave
+  m_EditorClassIdentifier: 
+  entities:
+  - {fileID: 7640695087394639845, guid: ad861b91fb9c8fa4480dac3c515a87b5, type: 3}
+  - {fileID: 1272289033628517210, guid: a54ff700b2cb42248a5c853a0bff0a09, type: 3}
+  - {fileID: 5519477652180019788, guid: 610d980626939ba4c90905a3f73843bb, type: 3}
+  radius: 20
+  amount: 2

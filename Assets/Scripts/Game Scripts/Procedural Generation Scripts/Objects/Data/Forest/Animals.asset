@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b5e218bfea29fc438c51bfc6a5b4cd2, type: 3}
+  m_Name: Animals
+  m_EditorClassIdentifier: 
+  entities:
+  - {fileID: 100455865745041034, guid: 84a88eb88db4bc44eaf0d6015a88c4ed, type: 3}
+  - {fileID: 112471713081782170, guid: 0523da1484f3c174f98f98d93a9e9b83, type: 3}
+  - {fileID: 6254050388509078259, guid: 612f177a8671e9547978a6d529660e17, type: 3}
+  - {fileID: 2587999759752304470, guid: 38d3991ea1ca5154487db86e4e181d4c, type: 3}
+  - {fileID: 5994734091082164514, guid: 3c670c464aefa1e4ca38b6fc18ee3492, type: 3}
+  - {fileID: 3497993949821894153, guid: 4172c208b5265f64d805347b0896c0ec, type: 3}
+  - {fileID: 8932972327447418600, guid: 2ae4f208968f65c47b7791451603b5a0, type: 3}
+  radius: 20
+  amount: 10

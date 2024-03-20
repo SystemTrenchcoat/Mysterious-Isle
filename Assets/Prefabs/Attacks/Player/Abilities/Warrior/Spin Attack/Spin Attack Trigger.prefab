@@ -99,17 +99,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attacker: {fileID: 0}
+  target: {fileID: 0}
   direction: 0
   type: 1
   effect: 0
   instanceCreated: {fileID: 8647206434189770686, guid: a101ea1824b11914489091a779785751, type: 3}
   instanceAmount: 1
+  instanceX: 0
+  instanceY: 0
+  instancesXs: []
+  instancesYs: []
   special: Trigger
+  needAttacker: 1
   needAttackerDirection: 1
   trigger: 1
   ability: 0
-  instancesXs: []
-  instancesYs: []
   effectDamage: 0
   effectDuration: 0
   effectDamageCooldown: 0

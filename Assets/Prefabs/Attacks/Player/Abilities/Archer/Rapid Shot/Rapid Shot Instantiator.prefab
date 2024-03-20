@@ -99,8 +99,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attacker: {fileID: 0}
+  target: {fileID: 0}
   direction: 0
-  type: 1
+  type: 2
   effect: 0
   instanceCreated: {fileID: 0}
   instanceAmount: 1
@@ -109,6 +110,7 @@ MonoBehaviour:
   instancesXs: []
   instancesYs: []
   special: Rapid Shot
+  needAttacker: 1
   needAttackerDirection: 0
   trigger: 0
   ability: 1

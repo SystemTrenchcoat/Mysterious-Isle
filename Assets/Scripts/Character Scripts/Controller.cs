@@ -22,6 +22,8 @@ public class Controller : MonoBehaviour
     public Tilemap dangers;
     public Tilemap barriers;
 
+    public int roomNum = 0;
+
     public float xOffset = 0;
     public float yOffset = 0;
 

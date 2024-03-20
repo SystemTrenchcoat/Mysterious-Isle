@@ -33,6 +33,7 @@ public class Goal : MonoBehaviour
         if (active)
         {
             //Debug.Log("Load next level");
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Controller>().roomNum += 1;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
         }
     }

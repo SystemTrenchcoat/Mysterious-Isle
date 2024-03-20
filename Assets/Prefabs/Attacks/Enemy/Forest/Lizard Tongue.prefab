@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attacker: {fileID: 0}
+  target: {fileID: 0}
   direction: 0
   type: 0
   effect: 0
@@ -109,6 +110,7 @@ MonoBehaviour:
   instancesXs: []
   instancesYs: []
   special: Tongue
+  needAttacker: 1
   needAttackerDirection: 0
   trigger: 0
   ability: 0

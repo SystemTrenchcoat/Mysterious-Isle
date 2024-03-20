@@ -160,19 +160,17 @@ MonoBehaviour:
   barriers: {fileID: 0}
   paths: {fileID: 0}
   camo: 0
+  active: 1
   ignoreDistance: 0
   omniAttacker: 0
   omniTracker: 0
   xOffset: 0
   yOffset: -1
-  xs: 0100000000000000ffffffff000000000200000000000000feffffff00000000
-  ys: 000000000100000000000000ffffffff000000000200000000000000feffffff
+  checkRadius: 2
   lowestX: 1
   lowestY: 1
   maxAtkDistX: 1
   maxAtkDistY: 1
-  noX: 
-  noY: 
   numActions: 2
   actionsRemaining: 2
   visualDelay: 0.25
@@ -212,14 +210,16 @@ MonoBehaviour:
   isBurrowing: 0
   isAttacking: 0
   isDefending: 0
+  canGrapple: 0
+  isGrappled: 0
   attack: {fileID: 5107055785640032369, guid: a048af2ebb935ef4a9dc0d10e05299fe, type: 3}
   weapon: {fileID: 5107055785640032369, guid: a048af2ebb935ef4a9dc0d10e05299fe, type: 3}
   alt: {fileID: 0}
   damageBonus: 0
   defenseBonus: 0
   crit: 0
-  health: 20
-  hp: 20
+  health: 120
+  hp: 120
 --- !u!114 &4994908554505547507
 MonoBehaviour:
   m_ObjectHideFlags: 0
