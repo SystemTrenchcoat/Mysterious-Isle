@@ -51,6 +51,7 @@ public class Collectable : MonoBehaviour
 
             else if (colType == Type.Stats)
             {
+                Debug.Log(stat.ToString());
                 if (stat == Stat.Damage)
                 {
                     player.GetComponent<Entities>().damageBonus += amount;

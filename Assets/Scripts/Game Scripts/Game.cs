@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class Game : MonoBehaviour
 {
     [SerializeField]
+    protected ObjectInstantiator powerupGenerator;
+    [SerializeField]
     protected ObjectInstantiator enemyGenerator;
     [SerializeField]
     protected SimpleRandomWalkGenerator levelGenerator;
@@ -144,6 +146,10 @@ public class Game : MonoBehaviour
 
             //generate enemy
             enemyGenerator.GenerateDungeon();
+            Debug.Log("Enemies");
+            //generate powerup
+            powerupGenerator.GenerateDungeon();
+            Debug.Log("Items");
         }
     }
 }

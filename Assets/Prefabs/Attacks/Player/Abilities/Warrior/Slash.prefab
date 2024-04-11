@@ -120,7 +120,7 @@ MonoBehaviour:
   damage: 4
   dCooldown: 1
   dCount: 0
-  cooldown: 0.5
+  cooldown: 1
   count: 0.5
   damageBoost: 0
   critChance: 0

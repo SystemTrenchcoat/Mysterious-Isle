@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5e218bfea29fc438c51bfc6a5b4cd2, type: 3}
   m_Name: Mammals
   m_EditorClassIdentifier: 
-  entities:
+  objects:
   - {fileID: 162090166271169096, guid: 42192489c7821664dbf6b35e978dfe8b, type: 3}
   - {fileID: 7000887054026255628, guid: ed1dd55161abb694c80325077857333e, type: 3}
   - {fileID: 5542322829156723377, guid: 7e73b34442cf0f947a8acca2eecbf77d, type: 3}
+  chances: []
   radius: 20
   amount: 10

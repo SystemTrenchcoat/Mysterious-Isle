@@ -18,7 +18,7 @@ public class ProceduralGeneratorEditor : Editor
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
-        if (GUILayout.Button("Generate Enemies"))
+        if (GUILayout.Button("Generate Objects"))
         {
             generator.GenerateDungeon();
         }

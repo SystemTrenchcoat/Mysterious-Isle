@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5e218bfea29fc438c51bfc6a5b4cd2, type: 3}
   m_Name: Reptiles
   m_EditorClassIdentifier: 
-  entities:
+  objects:
   - {fileID: 8752483433173453878, guid: 20044fde7046bd44292b2f3e7ef6b026, type: 3}
   - {fileID: 6554087070795712009, guid: 84dcdc4b7abe7664e9ac209f04d21101, type: 3}
   - {fileID: 141257845946725841, guid: 91650bf1e0b7f4349af9861ddc4f2d46, type: 3}
+  chances: []
   radius: 20
   amount: 10

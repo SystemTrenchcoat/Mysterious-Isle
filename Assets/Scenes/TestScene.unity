@@ -346,6 +346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e01fdc80ff06f848b4c885afc34d269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerupGenerator: {fileID: 0}
   enemyGenerator: {fileID: 0}
   levelGenerator: {fileID: 0}
   enemyParameters: []
@@ -404,7 +405,7 @@ Transform:
   - {fileID: 1690904528}
   - {fileID: 1481050520}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1481050519
 GameObject:
@@ -3323,7 +3324,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3086728477555396872, guid: 1ce819f7cdf0cb2428938f5ebca2148f, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3086728477555396872, guid: 1ce819f7cdf0cb2428938f5ebca2148f, type: 3}
       propertyPath: m_LocalPosition.x

@@ -64,104 +64,106 @@ public class Damage : MonoBehaviour
             }
             Destroy(gameObject);
         }
-
-        FindAttacker();
-
-        //Debug.Log(attacker);
-
-        damageBoost += attacker.damageBonus + 1;
-        critChance = attacker.crit;
-        damage = (int)(damage * damageBoost);
-        //Debug.Log(damage);
-        if (critChance > 0)
+        else
         {
-            critical();
-            Debug.Log(damage+"\n"+critDamage);
-        }
+            FindAttacker();
 
-        if (ability)
-        {
-            instanceCreated = attacker.weapon;
-        }
+            Debug.Log(attacker);
 
-        if (special == "Lunge")
-        {
-            Lunge();
-        }
-
-        else if (special == "Tri-Shot")
-        {
-            TriShot();
-
-           // instancesXs = xs.ToArray();
-            //instancesYs = ys.ToArray();
-        }
-
-        else if (special != "Targetted")
-        {
-            for (int i = 0; i < instanceAmount; i++)
+            damageBoost += attacker.damageBonus + 1;
+            critChance = attacker.crit;
+            damage = (int)(damage * damageBoost);
+            //Debug.Log(damage);
+            if (critChance > 0)
             {
-                //checks if there are any specific coordinates to put things
-                if (instancesXs.Length > 0)
+                critical();
+                Debug.Log(damage + "\n" + critDamage);
+            }
+
+            if (ability)
+            {
+                instanceCreated = attacker.weapon;
+            }
+
+            if (special == "Lunge")
+            {
+                Lunge();
+            }
+
+            else if (special == "Tri-Shot")
+            {
+                TriShot();
+
+                // instancesXs = xs.ToArray();
+                //instancesYs = ys.ToArray();
+            }
+
+            else if (special != "Targetted")
+            {
+                for (int i = 0; i < instanceAmount; i++)
                 {
-                    int e = i;
-                    //checks if i is too big to be in the list of xs
-                    //if so, subtracts by length until it is within range and makes offset whatever that number is
-                    while (e >= instancesXs.Length)
+                    //checks if there are any specific coordinates to put things
+                    if (instancesXs.Length > 0)
                     {
-                        e -= instancesXs.Length;
+                        int e = i;
+                        //checks if i is too big to be in the list of xs
+                        //if so, subtracts by length until it is within range and makes offset whatever that number is
+                        while (e >= instancesXs.Length)
+                        {
+                            e -= instancesXs.Length;
+                        }
+
+                        instanceX = instancesXs[e];
                     }
 
-                    instanceX = instancesXs[e];
-                }
-
-                if (instancesYs.Length > 0)
-                {
-                    int e = i;
-                    //checks if i is too big to be in the list of ys
-                    //if so, subtracts by length until it is within range and makes offset whatever that number is
-                    while (e >= instancesYs.Length)
+                    if (instancesYs.Length > 0)
                     {
-                        e -= instancesYs.Length;
+                        int e = i;
+                        //checks if i is too big to be in the list of ys
+                        //if so, subtracts by length until it is within range and makes offset whatever that number is
+                        while (e >= instancesYs.Length)
+                        {
+                            e -= instancesYs.Length;
+                        }
+
+                        instanceY = instancesYs[e];
                     }
 
-                    instanceY = instancesYs[e];
+                    if (trigger)
+                    {
+                        instanceX = xOffset * -1;
+                        instanceY = yOffset * -1;
+                    }
+
+                    if (special == "Tongue")
+                    {
+                        instanceX = xOffset * (i + 1);
+                        instanceY = yOffset * (i + 1);
+                    }
+
+                    //Debug.Log("X: " + instanceX + "\nY: " + instanceY);
+                    var attack = Instantiate(instanceCreated, new Vector3(transform.position.x + instanceX, transform.position.y + instanceY, -1), Quaternion.identity);
+                    if (special == "Lunge")
+                    {
+                        attack.GetComponent<Damage>().damageBoost += (float).5;
+                    }
+                    else if (special == "Rapid Shot")
+                    {
+                        attack.GetComponent<Damage>().damageBoost -= (float).25;
+                    }
                 }
 
                 if (trigger)
                 {
-                    instanceX = xOffset * -1;
-                    instanceY = yOffset * -1;
-                }
-
-                if (special == "Tongue")
-                {
-                    instanceX = xOffset * (i + 1);
-                    instanceY = yOffset * (i + 1);
-                }
-
-                //Debug.Log("X: " + instanceX + "\nY: " + instanceY);
-                var attack = Instantiate(instanceCreated, new Vector3(transform.position.x + instanceX, transform.position.y + instanceY, -1), Quaternion.identity);
-                if (special == "Lunge")
-                {
-                    attack.GetComponent<Damage>().damageBoost += (float).5;
-                }
-                else if (special == "Rapid Shot")
-                {
-                    attack.GetComponent<Damage>().damageBoost -= (float).25;
+                    //Destroy(this.gameObject);
                 }
             }
 
-            if (trigger)
+            if (attacker.isGrappled && !ability)
             {
+                attacker.FindGrappler().Damage(damage);
                 Destroy(this.gameObject);
             }
-        }
-
-        if (attacker.isGrappled && !ability)
-        {
-            attacker.FindGrappler().Damage(damage);
-            Destroy(this.gameObject);
         }
     }
 
@@ -209,7 +211,7 @@ public class Damage : MonoBehaviour
             var shot = Instantiate(instanceCreated, new Vector3(transform.position.x + xs, transform.position.y + ys, -1), Quaternion.identity);
             shot.GetComponent<Damage>().changeDirection(newDirection);
             shot.GetComponent<Damage>().special = "Keep Direction";
-            Debug.Log(shot.GetComponent<Damage>().direction);
+            //Debug.Log(shot.GetComponent<Damage>().ToString());
             changeDirection(originalDirection);
         }
     }
@@ -319,7 +321,7 @@ public class Damage : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Debug.Log(collision);
+        Debug.Log(collision);
         //findAttacker();
         if (collision.GetComponent<Entities>() != null && collision.GetComponent<Entities>() != attacker && dCount <= 0)
         {

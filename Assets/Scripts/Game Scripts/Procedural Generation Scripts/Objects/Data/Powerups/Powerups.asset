@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b5e218bfea29fc438c51bfc6a5b4cd2, type: 3}
+  m_Name: Powerups
+  m_EditorClassIdentifier: 
+  objects:
+  - {fileID: 2700209977915196530, guid: cfc3db27e86eb1c41a7927011f1d8793, type: 3}
+  - {fileID: 7493250595538189266, guid: b4fccae7b7f471f4c888dab262b232b2, type: 3}
+  - {fileID: 6877276799495229429, guid: 8dce0e50d2b51d44cadda4ba30878bce, type: 3}
+  - {fileID: 37016852376333327, guid: 3314438dd93031d42be24683604b188b, type: 3}
+  - {fileID: 483874426502060718, guid: 41bcd58aa2ab7794ea2678dccfb196ac, type: 3}
+  chances:
+  - 0.1
+  - 0.6
+  - 0.8
+  - 0.8
+  - 0.05
+  radius: 40
+  amount: 3

@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5e218bfea29fc438c51bfc6a5b4cd2, type: 3}
   m_Name: Plants
   m_EditorClassIdentifier: 
-  entities:
+  objects:
   - {fileID: 1909512515192388255, guid: 1daa547d40ff60c41b21d2a5ad1398c1, type: 3}
   - {fileID: 7128479587799999482, guid: 7d320778c2c840c49814c839ddc1c65c, type: 3}
+  chances: []
   radius: 20
   amount: 3

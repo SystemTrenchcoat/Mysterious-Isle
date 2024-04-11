@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5e218bfea29fc438c51bfc6a5b4cd2, type: 3}
   m_Name: Creepy Crawly
   m_EditorClassIdentifier: 
-  entities:
-  - {fileID: 0}
-  - {fileID: 0}
+  objects:
+  - {fileID: 837622489238124914, guid: 9f7c4327142e42649a260afd4ed2c47c, type: 3}
+  - {fileID: 2165340038511095052, guid: afab880002b37d24b90304f284216ef9, type: 3}
+  chances: []
   radius: 20
   amount: 2

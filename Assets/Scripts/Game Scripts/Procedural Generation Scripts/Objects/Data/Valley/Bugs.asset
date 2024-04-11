@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5e218bfea29fc438c51bfc6a5b4cd2, type: 3}
   m_Name: Bugs
   m_EditorClassIdentifier: 
-  entities:
+  objects:
   - {fileID: 1265554387575356349, guid: 222a99f1ab9371c4bab3cebc40df1af5, type: 3}
   - {fileID: 5106797217069029439, guid: 9f02557100cc7c04ab1e53ec783e1b9e, type: 3}
   - {fileID: 8445284500157276415, guid: d80cd6085ac4c4f4192ae6227f78a16f, type: 3}
+  - {fileID: 818444091456112038, guid: 8be5efd865103f241b4afeb323205ff9, type: 3}
+  chances: []
   radius: 20
   amount: 10

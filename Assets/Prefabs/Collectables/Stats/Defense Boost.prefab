@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bdd30e58344d6b479935236093722f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
+  type: 3
   item: {fileID: 0}
   player: {fileID: 0}
   items: []
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dd6d2b7100601a4782a62f788003ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colType: 2
+  colType: 3
   stat: 1
   amount: 0.25
   prefab: {fileID: 0}

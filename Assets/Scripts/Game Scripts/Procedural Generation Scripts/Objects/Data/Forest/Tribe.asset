@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5e218bfea29fc438c51bfc6a5b4cd2, type: 3}
   m_Name: Tribe
   m_EditorClassIdentifier: 
-  entities:
-  - {fileID: 8121299190834622548, guid: 25aeb36058c5df246bb2d9fa903f8206, type: 3}
+  objects:
   - {fileID: 7307624418127335845, guid: 185b40cedeab0214cb423ef8a0172579, type: 3}
   - {fileID: 6692584728456422876, guid: 38f60cbcec28928409393d04eafe7e2b, type: 3}
+  - {fileID: 8121299190834622548, guid: 25aeb36058c5df246bb2d9fa903f8206, type: 3}
+  chances: []
   radius: 20
   amount: 10

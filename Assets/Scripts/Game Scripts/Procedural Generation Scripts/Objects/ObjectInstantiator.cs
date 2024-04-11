@@ -28,6 +28,7 @@ public class ObjectInstantiator : ObjectInstantiatorAbstract
         barriers = GameObject.Find("Barriers").GetComponent<Tilemap>();
         paths = GameObject.Find("Paths").GetComponent<Tilemap>();
         producedObjects = new GameObject[info.amount];
+        GameObject nextObject = null;
 
         for (int i = 0; i < info.amount; i++)
         {
@@ -36,6 +37,7 @@ public class ObjectInstantiator : ObjectInstantiatorAbstract
             Vector3Int barrierMapTile = barriers.WorldToCell(next);
             Vector3Int dangerMapTile = dangers.WorldToCell(next);
             Vector3Int pathMapTile = barriers.WorldToCell(next);
+            nextObject = null;
 
             var collider = Physics2D.OverlapCircle(new Vector2(next.x, next.y), .5f);
 
@@ -51,8 +53,20 @@ public class ObjectInstantiator : ObjectInstantiatorAbstract
                 collider = Physics2D.OverlapCircle(new Vector2(next.x, next.y), .5f);
             }
 
+            //Set next object
+            while(nextObject == null)
+            {
+                int num = Random.Range(0, info.objects.Length);
+                float chance = Random.Range(0, 1);
+
+                if (info.chances.Length == info.objects.Length && chance <= info.chances[num])
+                {
+                    nextObject = info.objects[num];
+                }
+            }
+
             //Debug.Log("x: " + next.x + "\ny: " + next.y + "\nz: " + next.z);
-            producedObjects[i] = Instantiate(info.entities[Random.Range(0, info.entities.Length)], next, Quaternion.identity);
+            producedObjects[i] = Instantiate(nextObject, next, Quaternion.identity);
         }
     }
 }

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5e218bfea29fc438c51bfc6a5b4cd2, type: 3}
   m_Name: Boss
   m_EditorClassIdentifier: 
-  entities:
+  objects:
   - {fileID: 3526960436625829746, guid: 19c8a930ad74691468d1556b43966ab8, type: 3}
+  chances: []
   radius: 20
   amount: 1
