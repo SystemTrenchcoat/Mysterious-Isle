@@ -6,7 +6,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 
 public class Entities : MonoBehaviour
 {
-    public enum Direction { Right, Up, Left, Down, UL, UR, DL, DR };
+    public enum Direction { Right, Up, Left, Down, UR, UL, DL, DR };
     public enum Effect { None, Poison, Disoriented, Stunned, Skunked };
 
     public Direction direction = Direction.Down;

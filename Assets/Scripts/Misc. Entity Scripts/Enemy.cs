@@ -59,12 +59,15 @@ public class Enemy : MonoBehaviour
     public float visualCounter;
 
     public bool canDefend = false;
+    public bool distantAbility;
+    public int distance = 1;
     public int abilityChance;// = 25;
     public bool abilityOverload = false; //ability instead of attack
     public int altChance;// = 50;
     public bool altOverload = false;
     public bool hybridAttacker;
     public bool canDiag = false;
+    public bool diagAttack = false;
     public string special;
 
     public int attackCooldown;
@@ -240,7 +243,8 @@ public class Enemy : MonoBehaviour
                             || collider.GetComponent<Grappler>() != null && collider.GetComponent<Grappler>().isGrappling)
                         {
                             //Debug.Log(Math.Abs(check.x - transform.position.x) + "\n" + Math.Abs(check.y - transform.position.y));
-                            bool inAtkRng = Math.Abs(check.x - transform.position.x) <= maxAtkDistX && Math.Abs(check.y - transform.position.y) <= maxAtkDistY;
+                            bool inAtkRng = Math.Abs(check.x - transform.position.x) <= distance &&
+                                Math.Abs(check.y - transform.position.y) <= distance;
                             if (inAtkRng || ignoreDistance
                                 || (special == "Create Grapple" && !GameObject.FindGameObjectWithTag("Player").GetComponent<Entities>().isGrappled))
                             {
@@ -261,6 +265,20 @@ public class Enemy : MonoBehaviour
                                 //Debug.Log(xOffset + "\n" + yOffset);
                                 //i = 10; //end loop
                                 Debug.Log("Next action: Attack");
+
+                                if(distantAbility && 
+                                    (Math.Abs(check.x - transform.position.x) == distance ||
+                                    Math.Abs(check.y - transform.position.y) == distance))
+                                {
+                                    abilityOverload = true;
+                                    Debug.Log("Overload");
+                                }
+                                else if (distantAbility &&
+                                    (Math.Abs(check.x - transform.position.x) > distance &&
+                                    Math.Abs(check.y - transform.position.y) > distance))
+                                {
+                                    abilityOverload = false;
+                                }
                             }
 
                             else if (canDefend && !inAtkRng)
@@ -274,8 +292,12 @@ public class Enemy : MonoBehaviour
                             {
                                 act = Action.Move;
                                 skip = true;
-                                xOffset = Math.Sign(x) * lowestX;
-                                yOffset = Math.Sign(y) * lowestY;
+                                xOffset = (Math.Abs(x) < Math.Abs(y)) ?
+                                    0 :
+                                    Math.Sign(x) * lowestX;
+                                yOffset = (Math.Abs(y) < Math.Abs(x)) ?
+                                    0 : 
+                                    Math.Sign(y) * lowestY;
                                 if (!canDiag && Math.Sign(xOffset) != 0 && Math.Sign(yOffset) != 0)
                                 {
                                     switch(Random.Range(1,3))
@@ -319,6 +341,12 @@ public class Enemy : MonoBehaviour
                 if (abilityOverload)
                 {
                     instance = entity.attack;
+
+                    if (distantAbility)
+                    {
+                        abilityOverload = false;
+                        Debug.Log("Reset successful");
+                    }
                 }
                 if (altOverload)
                 {

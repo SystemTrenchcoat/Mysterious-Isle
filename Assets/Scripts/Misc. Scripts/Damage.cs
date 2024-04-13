@@ -7,7 +7,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 
 public class Damage : MonoBehaviour
 {
-    public enum Direction { Right, Up, Left, Down, UL, UR, DL, DR };
+    public enum Direction { Right, Up, Left, Down, UR, UL, DL, DR };
     public enum Type { Melee, Ranged, Instantiator, Spawn };
     public enum Effect { None, Poison, Disoriented, Stunned, Skunked };
     public Entities attacker;
@@ -68,7 +68,7 @@ public class Damage : MonoBehaviour
         {
             FindAttacker();
 
-            Debug.Log(attacker);
+            //Debug.Log(attacker);
 
             damageBoost += attacker.damageBonus + 1;
             critChance = attacker.crit;
@@ -88,6 +88,15 @@ public class Damage : MonoBehaviour
             if (special == "Lunge")
             {
                 Lunge();
+            }
+
+            else if (special == "Rampage")
+            {
+                attacker.damageBonus += .25f;
+                Lunge(true);
+                Debug.Log("Lunge");
+                Sweep();
+                Debug.Log("Sweep");
             }
 
             else if (special == "Tri-Shot")
@@ -209,20 +218,124 @@ public class Damage : MonoBehaviour
             //Debug.Log("X: " + transform.position.x + "\nY: " + transform.position.y);
 
             var shot = Instantiate(instanceCreated, new Vector3(transform.position.x + xs, transform.position.y + ys, -1), Quaternion.identity);
-            shot.GetComponent<Damage>().changeDirection(newDirection);
+            shot.GetComponent<Damage>().changeDirection(originalDirection); //new direction makes a fork/spray
             shot.GetComponent<Damage>().special = "Keep Direction";
             //Debug.Log(shot.GetComponent<Damage>().ToString());
             changeDirection(originalDirection);
         }
     }
 
-    private void Lunge()
+    private void Sweep()
+    {
+        float xs;// = new List<float>();
+        float ys;// = new List<float>();
+        int newDirection = (int)attacker.direction;
+
+        int originalDirection = (int)attacker.direction;
+
+        bool diagonal = originalDirection > 3;
+
+        for (int i = 0; i < instanceAmount; i++)
+        {
+            int off = 0;
+
+            if (i == 0)
+            {
+                off = 1;
+            }
+
+            else if (i % 2 == 1)
+            {
+                off = diagonal ?
+                    4 :
+                    3;
+            }
+
+            else if (i % 2 == 0)
+            {
+                off = diagonal ?
+                    3 :
+                    4;
+            }
+
+            newDirection += off;
+            //attacker.changeDirection(newDirection);
+            Debug.Log(off + " " + newDirection);// + attacker.direction);
+
+            if (i == 0 && !diagonal)
+            {
+                while (newDirection > 3)
+                {
+                    newDirection -= 4;
+                }
+                while (newDirection < 0)
+                {
+                    newDirection += 4;
+                }
+            }
+
+            else if (i == 4 && diagonal)
+            {
+                while (newDirection > 8)
+                {
+                    newDirection -= 4;
+                }
+                while (newDirection < 4)
+                {
+                    newDirection += 4;
+                }
+            }
+
+            else
+            {
+                while (newDirection > 7)
+                {
+                    newDirection -= 8;
+                }
+                while (newDirection < 0)
+                {
+                    newDirection += 8;
+                }
+            }
+
+
+
+            changeDirection(newDirection);
+            Debug.Log(direction + " " + i);
+
+
+
+            xs = changeXOffset();
+            ys = changeYOffset();
+
+            //Debug.Log("X: " + transform.position.x + "\nY: " + transform.position.y);
+
+            var shot = Instantiate(instanceCreated, new Vector3(transform.position.x + xs, transform.position.y + ys, -1), Quaternion.identity);
+            shot.GetComponent<Damage>().changeDirection(newDirection);
+            //shot.GetComponent<Damage>().special = "Keep Direction";
+            //Debug.Log(shot.GetComponent<Damage>().ToString());
+            changeDirection(originalDirection);
+        }
+    }
+
+    /// <summary>
+    /// Do a lunge then attack
+    /// </summary>
+    /// <param name="altAttack">True if it is anything other than a single attack prefab</param>
+    private void Lunge(bool altAttack = false)
     {
         attacker.transform.Translate(new Vector3(xOffset, yOffset, 0));
         instanceX = xOffset;
         instanceY = yOffset;
+        if (altAttack)
+        {
+            var attack = Instantiate(instanceCreated, new Vector3(transform.position.x + instanceX, transform.position.y + instanceY, -1), Quaternion.identity);
+            attack.GetComponent<Damage>().damageBoost += .25f;
+        }
         Debug.Log("X: " + instanceX + "\nY: " + instanceY);
     }
+
+    
 
     private void RapidShot()
     {
@@ -233,7 +346,7 @@ public class Damage : MonoBehaviour
             instanceY = yOffset;
             //Debug.Log("X: " + instanceX + "\nY: " + instanceY);
             var attack = Instantiate(instanceCreated, new Vector3(transform.position.x + instanceX, transform.position.y + instanceY, -1), Quaternion.identity);
-            attack.GetComponent<Damage>().damageBoost -= (float).25;
+            attack.GetComponent<Damage>().damageBoost -= .25f;
             count = cooldown;
         }
     }
@@ -321,7 +434,7 @@ public class Damage : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision);
+        Debug.Log(this + " " + collision);
         //findAttacker();
         if (collision.GetComponent<Entities>() != null && collision.GetComponent<Entities>() != attacker && dCount <= 0)
         {
