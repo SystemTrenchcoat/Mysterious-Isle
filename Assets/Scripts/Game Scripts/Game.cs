@@ -142,7 +142,7 @@ public class Game : MonoBehaviour
             levelGenerator.GenerateDungeon();
 
             //set player position
-            player.gameObject.transform.position = Vector3.zero;
+            player.gameObject.transform.position = new Vector3(.5f, .5f, -1);
 
             //generate enemy
             enemyGenerator.GenerateDungeon();

@@ -47,9 +47,6 @@ public class Enemy : MonoBehaviour
     public int lowestX = 1;
     public int lowestY = 1;
 
-    public float maxAtkDistX = 1;
-    public float maxAtkDistY = 1;
-
     //public int[] noX;
     //public int[] noY;
 
@@ -60,7 +57,7 @@ public class Enemy : MonoBehaviour
 
     public bool canDefend = false;
     public bool distantAbility;
-    public int distance = 1;
+    public int attackDistance = 1;
     public int abilityChance;// = 25;
     public bool abilityOverload = false; //ability instead of attack
     public int altChance;// = 50;
@@ -243,14 +240,15 @@ public class Enemy : MonoBehaviour
                             || collider.GetComponent<Grappler>() != null && collider.GetComponent<Grappler>().isGrappling)
                         {
                             //Debug.Log(Math.Abs(check.x - transform.position.x) + "\n" + Math.Abs(check.y - transform.position.y));
-                            bool inAtkRng = Math.Abs(check.x - transform.position.x) <= distance &&
-                                Math.Abs(check.y - transform.position.y) <= distance;
+                            bool inAtkRng = Math.Abs(check.x - transform.position.x) <= attackDistance &&
+                                Math.Abs(check.y - transform.position.y) <= attackDistance;
                             if (inAtkRng || ignoreDistance
                                 || (special == "Create Grapple" && !GameObject.FindGameObjectWithTag("Player").GetComponent<Entities>().isGrappled))
                             {
                                 act = Action.Attack;
-                                xOffset = Math.Sign(x) * maxAtkDistX;
-                                yOffset = Math.Sign(y) * maxAtkDistY;
+                                //multiply by distance if there is an issue (removed max x and y distance)
+                                xOffset = Math.Sign(x);
+                                yOffset = Math.Sign(y);
                                 entity.changeDirection(Math.Sign(xOffset), Math.Sign(yOffset));
                                 timerA = attackDelay;
                                 if ((hybridAttacker && !inAtkRng) || (inAtkRng && entity.attack.GetComponent<Damage>().special == "Lunge")
@@ -267,15 +265,15 @@ public class Enemy : MonoBehaviour
                                 Debug.Log("Next action: Attack");
 
                                 if(distantAbility && 
-                                    (Math.Abs(check.x - transform.position.x) == distance ||
-                                    Math.Abs(check.y - transform.position.y) == distance))
+                                    (Math.Abs(check.x - transform.position.x) == attackDistance ||
+                                    Math.Abs(check.y - transform.position.y) == attackDistance))
                                 {
                                     abilityOverload = true;
                                     Debug.Log("Overload");
                                 }
                                 else if (distantAbility &&
-                                    (Math.Abs(check.x - transform.position.x) > distance &&
-                                    Math.Abs(check.y - transform.position.y) > distance))
+                                    (Math.Abs(check.x - transform.position.x) > attackDistance &&
+                                    Math.Abs(check.y - transform.position.y) > attackDistance))
                                 {
                                     abilityOverload = false;
                                 }
@@ -298,6 +296,7 @@ public class Enemy : MonoBehaviour
                                 yOffset = (Math.Abs(y) < Math.Abs(x)) ?
                                     0 : 
                                     Math.Sign(y) * lowestY;
+                                Debug.Log(lowestX + " " + lowestY);
                                 if (!canDiag && Math.Sign(xOffset) != 0 && Math.Sign(yOffset) != 0)
                                 {
                                     switch(Random.Range(1,3))
@@ -313,7 +312,7 @@ public class Enemy : MonoBehaviour
                                     camo = false;
                                 }
                                 //i = 10; //end loop
-                                //Debug.Log(xOffset + " " + yOffset);
+                                Debug.Log(xOffset + " " + yOffset);
                             }
                         }
                     }

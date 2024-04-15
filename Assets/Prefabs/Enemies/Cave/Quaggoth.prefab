@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5519477652180019788
+--- !u!1 &8609415311970703919
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,13 +8,13 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2572925174093477911}
-  - component: {fileID: 4168400537307342074}
-  - component: {fileID: 8657671783087774013}
-  - component: {fileID: 6548111272024536292}
-  - component: {fileID: 126817541578146278}
-  - component: {fileID: 1569885825928779565}
-  - component: {fileID: 2546391764198965983}
+  - component: {fileID: 8609415311970703894}
+  - component: {fileID: 8609415311970703893}
+  - component: {fileID: 8609415311970703892}
+  - component: {fileID: 8609415311970703891}
+  - component: {fileID: 8609415311970703890}
+  - component: {fileID: 8609415311970703889}
+  - component: {fileID: 8609415311970703888}
   m_Layer: 6
   m_Name: Quaggoth
   m_TagString: Enemy
@@ -22,13 +22,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2572925174093477911
+--- !u!4 &8609415311970703894
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5519477652180019788}
+  m_GameObject: {fileID: 8609415311970703919}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.5, y: 0.5, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -37,13 +37,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &4168400537307342074
+--- !u!212 &8609415311970703893
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5519477652180019788}
+  m_GameObject: {fileID: 8609415311970703919}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -89,13 +89,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &8657671783087774013
+--- !u!61 &8609415311970703892
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5519477652180019788}
+  m_GameObject: {fileID: 8609415311970703919}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -115,14 +115,14 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9, y: 0.9}
   m_EdgeRadius: 0
---- !u!50 &6548111272024536292
+--- !u!50 &8609415311970703891
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5519477652180019788}
+  m_GameObject: {fileID: 8609415311970703919}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -136,13 +136,13 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &126817541578146278
+--- !u!114 &8609415311970703890
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5519477652180019788}
+  m_GameObject: {fileID: 8609415311970703919}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b971e3e5d40aeed48a4c3a66c7a8a4ad, type: 3}
@@ -169,28 +169,30 @@ MonoBehaviour:
   checkRadius: 2
   lowestX: 1
   lowestY: 1
-  maxAtkDistX: 1
-  maxAtkDistY: 1
   numActions: 6
   actionsRemaining: 6
   visualDelay: 0.25
   visualCounter: 0
   canDefend: 0
+  distantAbility: 1
+  attackDistance: 2
   abilityChance: 0
   abilityOverload: 0
   altChance: 0
   altOverload: 0
   hybridAttacker: 0
   canDiag: 0
+  diagAttack: 0
   special: 
+  attackCooldown: 0
   instance: {fileID: 0}
---- !u!114 &1569885825928779565
+--- !u!114 &8609415311970703889
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5519477652180019788}
+  m_GameObject: {fileID: 8609415311970703919}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff277890d8e75ed4a85149dec5bd8593, type: 3}
@@ -212,7 +214,7 @@ MonoBehaviour:
   isDefending: 0
   canGrapple: 0
   isGrappled: 0
-  attack: {fileID: 4906933963369553404, guid: 36b14016fb2a8b64bb9d4103a8bd4d92, type: 3}
+  attack: {fileID: 2707609069946556815, guid: c1fd0479db0095045a1eae7881f847bb, type: 3}
   weapon: {fileID: 4906933963369553404, guid: 36b14016fb2a8b64bb9d4103a8bd4d92, type: 3}
   alt: {fileID: 0}
   damageBonus: 0
@@ -220,13 +222,13 @@ MonoBehaviour:
   crit: 0
   health: 55
   hp: 55
---- !u!114 &2546391764198965983
+--- !u!114 &8609415311970703888
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5519477652180019788}
+  m_GameObject: {fileID: 8609415311970703919}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f29d0c0ea26d664e8e542dd02e71e94, type: 3}
