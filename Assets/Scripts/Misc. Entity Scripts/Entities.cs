@@ -101,6 +101,7 @@ public class Entities : MonoBehaviour
             }
         }
     }
+
     public Grappler FindGrappler()
     {
         Grappler grapple = null;
@@ -215,39 +216,39 @@ public class Entities : MonoBehaviour
         }
     }
 
-    public int defendDirectionOffsetX()
-    {
-        int off = 0;
+    //public int defendDirectionOffsetX()
+    //{
+    //    int off = 0;
 
-        if (defendDirection == Direction.Left)
-        {
-            off = -1;
-        }
+    //    if (defendDirection == Direction.Left)
+    //    {
+    //        off = -1;
+    //    }
 
-        else if (defendDirection == Direction.Right)
-        {
-            off = 1;
-        }
+    //    else if (defendDirection == Direction.Right)
+    //    {
+    //        off = 1;
+    //    }
 
-        return off;
-    }
+    //    return off;
+    //}
 
-    public int defendDirectionOffsetY()
-    {
-        int off = 0;
+    //public int defendDirectionOffsetY()
+    //{
+    //    int off = 0;
 
-        if (defendDirection == Direction.Down)
-        {
-            off = -1;
-        }
+    //    if (defendDirection == Direction.Down)
+    //    {
+    //        off = -1;
+    //    }
 
-        else if (defendDirection == Direction.Up)
-        {
-            off = 1;
-        }
+    //    else if (defendDirection == Direction.Up)
+    //    {
+    //        off = 1;
+    //    }
 
-        return off;
-    }
+    //    return off;
+    //}
     
     public void Damage(int damage)
     {

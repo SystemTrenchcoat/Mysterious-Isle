@@ -296,7 +296,7 @@ public class Enemy : MonoBehaviour
                                 yOffset = (Math.Abs(y) < Math.Abs(x)) ?
                                     0 : 
                                     Math.Sign(y) * lowestY;
-                                Debug.Log(lowestX + " " + lowestY);
+                                //Debug.Log(lowestX + " " + lowestY);
                                 if (!canDiag && Math.Sign(xOffset) != 0 && Math.Sign(yOffset) != 0)
                                 {
                                     switch(Random.Range(1,3))
@@ -312,7 +312,7 @@ public class Enemy : MonoBehaviour
                                     camo = false;
                                 }
                                 //i = 10; //end loop
-                                Debug.Log(xOffset + " " + yOffset);
+                                //Debug.Log(xOffset + " " + yOffset);
                             }
                         }
                     }

@@ -274,19 +274,20 @@ MonoBehaviour:
   checkRadius: 2
   lowestX: 1
   lowestY: 1
-  maxAtkDistX: 1
-  maxAtkDistY: 1
   numActions: 1
   actionsRemaining: 1
   visualDelay: 0.5
   visualCounter: 0
   canDefend: 0
+  distantAbility: 0
+  attackDistance: 1
   abilityChance: 0
   abilityOverload: 0
   altChance: 0
   altOverload: 0
   hybridAttacker: 0
   canDiag: 0
+  diagAttack: 0
   special: 
   attackCooldown: 0
   instance: {fileID: 0}
@@ -761,19 +762,20 @@ MonoBehaviour:
   checkRadius: 2
   lowestX: 1
   lowestY: 1
-  maxAtkDistX: 1
-  maxAtkDistY: 1
   numActions: 1
   actionsRemaining: 1
   visualDelay: 0.5
   visualCounter: 0
   canDefend: 0
+  distantAbility: 0
+  attackDistance: 1
   abilityChance: 0
   abilityOverload: 0
   altChance: 0
   altOverload: 0
   hybridAttacker: 0
   canDiag: 0
+  diagAttack: 0
   special: 
   attackCooldown: 0
   instance: {fileID: 0}
@@ -1031,19 +1033,20 @@ MonoBehaviour:
   checkRadius: 2
   lowestX: 1
   lowestY: 1
-  maxAtkDistX: 1
-  maxAtkDistY: 1
   numActions: 1
   actionsRemaining: 1
   visualDelay: 0.5
   visualCounter: 0
   canDefend: 0
+  distantAbility: 0
+  attackDistance: 1
   abilityChance: 0
   abilityOverload: 0
   altChance: 0
   altOverload: 0
   hybridAttacker: 0
   canDiag: 0
+  diagAttack: 0
   special: 
   attackCooldown: 0
   instance: {fileID: 0}
@@ -1276,19 +1279,20 @@ MonoBehaviour:
   checkRadius: 2
   lowestX: 1
   lowestY: 1
-  maxAtkDistX: 1
-  maxAtkDistY: 1
   numActions: 1
   actionsRemaining: 1
   visualDelay: 0.5
   visualCounter: 0
   canDefend: 0
+  distantAbility: 0
+  attackDistance: 1
   abilityChance: 0
   abilityOverload: 0
   altChance: 0
   altOverload: 0
   hybridAttacker: 0
   canDiag: 0
+  diagAttack: 0
   special: 
   attackCooldown: 0
   instance: {fileID: 0}
@@ -1546,19 +1550,20 @@ MonoBehaviour:
   checkRadius: 2
   lowestX: 1
   lowestY: 1
-  maxAtkDistX: 1
-  maxAtkDistY: 1
   numActions: 1
   actionsRemaining: 1
   visualDelay: 0.5
   visualCounter: 0
   canDefend: 0
+  distantAbility: 0
+  attackDistance: 1
   abilityChance: 0
   abilityOverload: 0
   altChance: 0
   altOverload: 0
   hybridAttacker: 0
   canDiag: 0
+  diagAttack: 0
   special: 
   attackCooldown: 0
   instance: {fileID: 0}
@@ -8297,19 +8302,20 @@ MonoBehaviour:
   checkRadius: 2
   lowestX: 1
   lowestY: 1
-  maxAtkDistX: 1
-  maxAtkDistY: 1
   numActions: 2
   actionsRemaining: 2
   visualDelay: 0.5
   visualCounter: 0
   canDefend: 0
+  distantAbility: 0
+  attackDistance: 1
   abilityChance: 0
   abilityOverload: 0
   altChance: 0
   altOverload: 0
   hybridAttacker: 0
   canDiag: 0
+  diagAttack: 0
   special: 
   attackCooldown: 0
   instance: {fileID: 0}
@@ -8531,19 +8537,20 @@ MonoBehaviour:
   checkRadius: 2
   lowestX: 1
   lowestY: 1
-  maxAtkDistX: 1
-  maxAtkDistY: 1
   numActions: 1
   actionsRemaining: 1
   visualDelay: 0.5
   visualCounter: 0
   canDefend: 0
+  distantAbility: 0
+  attackDistance: 1
   abilityChance: 0
   abilityOverload: 0
   altChance: 0
   altOverload: 0
   hybridAttacker: 0
   canDiag: 1
+  diagAttack: 0
   special: 
   attackCooldown: 0
   instance: {fileID: 0}
@@ -8817,19 +8824,20 @@ MonoBehaviour:
   checkRadius: 2
   lowestX: 1
   lowestY: 1
-  maxAtkDistX: 1
-  maxAtkDistY: 1
   numActions: 1
   actionsRemaining: 1
   visualDelay: 0.5
   visualCounter: 0
   canDefend: 0
+  distantAbility: 0
+  attackDistance: 1
   abilityChance: 0
   abilityOverload: 0
   altChance: 0
   altOverload: 0
   hybridAttacker: 0
   canDiag: 0
+  diagAttack: 0
   special: 
   attackCooldown: 0
   instance: {fileID: 0}
@@ -8959,6 +8967,7 @@ GameObject:
   - component: {fileID: 1647193907}
   - component: {fileID: 1647193906}
   - component: {fileID: 1647193908}
+  - component: {fileID: 1647193909}
   m_Layer: 0
   m_Name: Dangers
   m_TagString: Untagged
@@ -9129,6 +9138,22 @@ MonoBehaviour:
   countdown: 2
   trigger: 0
   entity: {fileID: 0}
+--- !u!19719996 &1647193909
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647193904}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0.00001
 --- !u!1 &1758242595
 GameObject:
   m_ObjectHideFlags: 0
@@ -9197,19 +9222,20 @@ MonoBehaviour:
   checkRadius: 2
   lowestX: 1
   lowestY: 1
-  maxAtkDistX: 1
-  maxAtkDistY: 1
   numActions: 1
   actionsRemaining: 1
   visualDelay: 0.5
   visualCounter: 0
   canDefend: 0
+  distantAbility: 0
+  attackDistance: 1
   abilityChance: 0
   abilityOverload: 0
   altChance: 0
   altOverload: 0
   hybridAttacker: 0
   canDiag: 0
+  diagAttack: 0
   special: 
   attackCooldown: 0
   instance: {fileID: 0}
@@ -9467,19 +9493,20 @@ MonoBehaviour:
   checkRadius: 2
   lowestX: 1
   lowestY: 1
-  maxAtkDistX: 1
-  maxAtkDistY: 1
   numActions: 2
   actionsRemaining: 2
   visualDelay: 0.5
   visualCounter: 0
   canDefend: 0
+  distantAbility: 0
+  attackDistance: 1
   abilityChance: 0
   abilityOverload: 0
   altChance: 0
   altOverload: 0
   hybridAttacker: 0
   canDiag: 0
+  diagAttack: 0
   special: 
   attackCooldown: 0
   instance: {fileID: 0}
@@ -9658,6 +9685,7 @@ GameObject:
   - component: {fileID: 2098527138}
   - component: {fileID: 2098527140}
   - component: {fileID: 2098527139}
+  - component: {fileID: 2098527141}
   m_Layer: 0
   m_Name: Barriers
   m_TagString: Untagged
@@ -12081,3 +12109,19 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!19719996 &2098527141
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098527137}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0.00001
