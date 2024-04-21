@@ -9,7 +9,7 @@ using static UnityEditor.FilePathAttribute;
 
 public class Controller : MonoBehaviour
 {
-    Entities entity;
+    Entity entity;
 
     Rigidbody2D rb;
 
@@ -38,7 +38,7 @@ public class Controller : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        entity = GetComponent<Entities>();
+        entity = GetComponent<Entity>();
         dangers = GameObject.Find("Dangers").GetComponent<Tilemap>();
         barriers = GameObject.Find("Barriers").GetComponent<Tilemap>();
     }
@@ -56,7 +56,7 @@ public class Controller : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
-        if (entity.effect != Entities.Effect.Stunned && entity.effect != Entities.Effect.Skunked)
+        if (entity.effect != Entity.Effect.Stunned && entity.effect != Entity.Effect.Skunked)
         {
             //Tile-based movement
             //Debug.Log(entity.isAttacking);
@@ -135,7 +135,7 @@ public class Controller : MonoBehaviour
             yOffset = 0;
         }
 
-        if (entity.effect == Entities.Effect.Disoriented)
+        if (entity.effect == Entity.Effect.Disoriented)
         {
             xOffset *= -1;
             yOffset *= -1;

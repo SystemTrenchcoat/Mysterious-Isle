@@ -8,7 +8,7 @@ public class HarmfulTerrain : MonoBehaviour
     public float delay = 2f;
     public float countdown = 2f;
     public bool trigger = false;
-    public Entities entity;
+    public Entity entity;
 
     // Start is called before the first frame update
     void Start()
@@ -43,9 +43,9 @@ public class HarmfulTerrain : MonoBehaviour
     {
         Debug.Log("Damage");
 
-        if (collision.GetComponent<Entities>() != null)
+        if (collision.GetComponent<Entity>() != null)
         {
-            entity = collision.GetComponent<Entities>();
+            entity = collision.GetComponent<Entity>();
 
             if (entity.canFly)
             {

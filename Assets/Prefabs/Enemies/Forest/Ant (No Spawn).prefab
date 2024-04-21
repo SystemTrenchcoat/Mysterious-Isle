@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3f5ca4308effc0c4caa675062d51c44c, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.7169812, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -200,24 +200,26 @@ MonoBehaviour:
   ignoreDistance: 0
   omniAttacker: 0
   omniTracker: 0
+  nonAttacker: 0
   xOffset: 0
   yOffset: -1
   checkRadius: 2
   lowestX: 1
   lowestY: 1
-  maxAtkDistX: 1
-  maxAtkDistY: 1
   numActions: 1
   actionsRemaining: 1
   visualDelay: 0.5
   visualCounter: 0
   canDefend: 0
+  distantAbility: 0
+  attackDistance: 1
   abilityChance: 0
   abilityOverload: 0
   altChance: 0
   altOverload: 0
   hybridAttacker: 0
   canDiag: 0
+  diagAttack: 0
   special: 
   attackCooldown: 0
   instance: {fileID: 0}

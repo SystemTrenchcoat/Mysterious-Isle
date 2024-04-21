@@ -4,7 +4,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
 
-public class Entities : MonoBehaviour
+public class Entity : MonoBehaviour
 {
     public enum Direction { Right, Up, Left, Down, UR, UL, DL, DR };
     public enum Effect { None, Poison, Disoriented, Stunned, Skunked };

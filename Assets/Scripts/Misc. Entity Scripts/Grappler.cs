@@ -5,7 +5,7 @@ using UnityEngine;
 public class Grappler : MonoBehaviour
 {
     //public GameObject grappler;
-    public Entities target;
+    public Entity target;
 
     public bool isGrappling;
     public int hp;
@@ -45,9 +45,9 @@ public class Grappler : MonoBehaviour
         if (target == null)
         {
             isGrappling = true;
-            if (collision.GetComponent<Entities>() != null && !collision.GetComponent<Entities>().isGrappled)
+            if (collision.GetComponent<Entity>() != null && !collision.GetComponent<Entity>().isGrappled)
             {
-                target = collision.GetComponent<Entities>();
+                target = collision.GetComponent<Entity>();
                 target.isGrappled = true;
             }
         }
@@ -63,7 +63,7 @@ public class Grappler : MonoBehaviour
         if (isGrappling)
         {
             isGrappling = false;
-            if (collision.GetComponent<Entities>() != null)
+            if (collision.GetComponent<Entity>() != null)
             {
                 target.isGrappled = false;
                 target = null;

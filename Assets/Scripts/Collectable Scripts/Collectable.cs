@@ -5,7 +5,7 @@ using UnityEngine;
 public class Collectable : MonoBehaviour
 {
     public enum Type { Weapon, Class, Ability, Stats }
-    public enum Stat { Damage, Defense, Crit }
+    public enum Stat { Damage, Defense, Crit, Health }
     public Type colType;
     public Stat stat;
     public float amount;
@@ -29,16 +29,16 @@ public class Collectable : MonoBehaviour
         {
             if (colType == Type.Ability)
             {
-                player.GetComponent<Entities>().attack = prefab;
+                player.GetComponent<Entity>().attack = prefab;
             }
 
             else if (colType == Type.Weapon)
             {
-                player.GetComponent<Entities>().weapon = prefab;
+                player.GetComponent<Entity>().weapon = prefab;
 
-                if (player.GetComponent<Entities>().attack == player.GetComponent<CharacterCollectables>().Abilities[0])
+                if (player.GetComponent<Entity>().attack == player.GetComponent<CharacterCollectables>().Abilities[0])
                 {
-                    player.GetComponent<Entities>().attack = prefab;
+                    player.GetComponent<Entity>().attack = prefab;
                 }
             }
             
@@ -54,17 +54,23 @@ public class Collectable : MonoBehaviour
                 Debug.Log(stat.ToString());
                 if (stat == Stat.Damage)
                 {
-                    player.GetComponent<Entities>().damageBonus += amount;
+                    player.GetComponent<Entity>().damageBonus += amount;
                 }
 
                 else if (stat == Stat.Defense)
                 {
-                    player.GetComponent<Entities>().defenseBonus += amount;
+                    player.GetComponent<Entity>().defenseBonus += amount;
                 }
 
                 else if (stat == Stat.Crit)
                 {
-                    player.GetComponent<Entities>().crit += amount;
+                    player.GetComponent<Entity>().crit += amount;
+                }
+
+                else if (stat == Stat.Health)
+                {
+                    player.GetComponent<Entity>().health += (int)amount;
+                    player.GetComponent<Entity>().hp += (int)amount;
                 }
             }
             

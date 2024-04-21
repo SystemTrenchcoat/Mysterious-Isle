@@ -10,8 +10,8 @@ public class Damage : MonoBehaviour
     public enum Direction { Right, Up, Left, Down, UR, UL, DL, DR };
     public enum Type { Melee, Ranged, Instantiator, Spawn };
     public enum Effect { None, Poison, Disoriented, Stunned, Skunked };
-    public Entities attacker;
-    public Entities target;
+    public Entity attacker;
+    public Entity target;
 
     public Direction direction;// = Direction.Down;
     public Type type;
@@ -434,11 +434,11 @@ public class Damage : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(this + " " + collision);
+        //Debug.Log(this + " " + collision);
         //findAttacker();
-        if (collision.GetComponent<Entities>() != null && collision.GetComponent<Entities>() != attacker && dCount <= 0)
+        if (collision.GetComponent<Entity>() != null && collision.GetComponent<Entity>() != attacker && dCount <= 0)
         {
-            Entities entity = collision.GetComponent<Entities>();
+            Entity entity = collision.GetComponent<Entity>();
             //Debug.Log(effect);
             if (entity.isFlying)
             {
@@ -479,11 +479,11 @@ public class Damage : MonoBehaviour
 
     private void FindAttacker()
     {
-        Entities attack = null;
-        Entities[] entities = FindObjectsOfType<Entities>();
+        Entity attack = null;
+        Entity[] entities = FindObjectsOfType<Entity>();
         float closestDistanceSqr = Mathf.Infinity;
         Vector3 currentPosition = transform.position;
-        foreach (Entities potentialAttacker in entities)
+        foreach (Entity potentialAttacker in entities)
         {
             //Debug.Log(potentialAttacker);
             Transform potentialPosition = potentialAttacker.GetComponent<Transform>();

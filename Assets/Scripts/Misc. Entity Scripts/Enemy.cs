@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
 {
     public enum Action { Move, Attack, Defend };
 
-    Entities entity;
+    Entity entity;
     Rigidbody2D rb;
     SpriteRenderer spriteRenderer;
     Vector3 nextLocation;
@@ -36,6 +36,7 @@ public class Enemy : MonoBehaviour
     public bool ignoreDistance;
     public bool omniAttacker;
     public bool omniTracker;
+    public bool nonAttacker = false;
 
     public float xOffset = 0;
     public float yOffset = -1f;
@@ -75,7 +76,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        entity = GetComponent<Entities>();
+        entity = GetComponent<Entity>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         dangers = GameObject.Find("Dangers").GetComponent<Tilemap>();
         barriers = GameObject.Find("Barriers").GetComponent<Tilemap>();
@@ -122,13 +123,13 @@ public class Enemy : MonoBehaviour
             entity.isDefending = false;
         }
 
-        if (timer <= 0)
+        if (timer <= 0 && !entity.isDefending)
         {
             //Debug.Log("Something");
             timerB = blockDuration;
             entity.isAttacking = false;
             entity.isDefending = false;
-            if (actionsRemaining > 0 && visualCounter <= 0 && entity.effect != Entities.Effect.Stunned)
+            if (actionsRemaining > 0 && visualCounter <= 0 && entity.effect != Entity.Effect.Stunned)
             {
                 DecideAction();
 
@@ -140,7 +141,7 @@ public class Enemy : MonoBehaviour
                     //Debug.Log(xOffset + "\n" + yOffset);
 
                     var attack = Instantiate(instance, new Vector3(transform.position.x + xOffset, transform.position.y + yOffset, -1), Quaternion.identity);
-                    attack.GetComponent<Damage>().target = GameObject.FindGameObjectWithTag("Player").GetComponent<Entities>();
+                    attack.GetComponent<Damage>().target = GameObject.FindGameObjectWithTag("Player").GetComponent<Entity>();
                 }
 
                 //gradually moves enemy to location
@@ -171,6 +172,87 @@ public class Enemy : MonoBehaviour
         //Debug.Log(timer);
         timer -= Time.deltaTime;
         timerA -= Time.deltaTime;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Bonk");
+        Entity entity = GetComponent<Entity>();
+
+        if (entity != null)
+        {
+            gameObject.transform.Translate(new Vector3(-xOffset, -yOffset, 0));
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log(collision);
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (collision == player.GetComponent<Collider2D>())
+        {
+            if (special == "Pixie")
+            {
+                Debug.Log("Pixie");
+                player.GetComponent<Entity>().Heal(25);
+                entity.health = 0;
+            }
+
+            else if (special == "Wisp")
+            {
+                int ranStat = Random.Range(0, 4);
+
+                switch(ranStat)
+                {
+                    case 0:
+                        GetComponent<Collectable>().stat = Collectable.Stat.Damage;
+                        GetComponent<Collectable>().amount = .25f;
+                        break;
+                    case 1:
+                        GetComponent<Collectable>().stat = Collectable.Stat.Defense;
+                        GetComponent<Collectable>().amount = .25f;
+                        break;
+                    case 2:
+                        GetComponent<Collectable>().stat = Collectable.Stat.Crit;
+                        GetComponent<Collectable>().amount = 60f;
+                        break;
+                    case 3:
+                        GetComponent<Collectable>().stat = Collectable.Stat.Health;
+                        GetComponent<Collectable>().amount = 20f;
+                        break;
+                }
+                entity.health = 0;
+            }
+
+            else if (special == "Fae")
+            {
+                Vector3 next = new Vector3(Random.Range(-7, 8), Random.Range(-7, 8), 0);
+                Vector3 test = new Vector3(playerLocation.x + next.x, playerLocation.y + next.y, -1);
+
+                Vector3Int barrierMapTile = barriers.WorldToCell(test);
+                Vector3Int dangerMapTile = dangers.WorldToCell(test);
+                Vector3Int pathMapTile = barriers.WorldToCell(test);
+
+                var collider = Physics2D.OverlapCircle(new Vector2(test.x, test.y), .5f);
+
+                while (!(barriers.GetTile(barrierMapTile) == null && (dangers.GetTile(dangerMapTile) != null || paths.GetTile(pathMapTile) != null)
+                    && (collider == null || collider != null && collider.GetComponent<BoxCollider2D>() == null)))
+                {
+                    next = new Vector3(Random.Range(-7, 8), Random.Range(-7, 8), 0);
+                    test = new Vector3(playerLocation.x + next.x, playerLocation.y + next.y, -1);
+
+                    barrierMapTile = barriers.WorldToCell(test);
+                    dangerMapTile = dangers.WorldToCell(test);
+                    pathMapTile = barriers.WorldToCell(test);
+
+                    collider = Physics2D.OverlapCircle(new Vector2(test.x, test.y), .5f);
+                }
+
+                player.GetComponent<Transform>().Translate(next);
+
+                Debug.Log("Voon " + next);
+                entity.health = 0;
+            }
+        }
     }
 
     private void DecideAction()
@@ -242,8 +324,16 @@ public class Enemy : MonoBehaviour
                             //Debug.Log(Math.Abs(check.x - transform.position.x) + "\n" + Math.Abs(check.y - transform.position.y));
                             bool inAtkRng = Math.Abs(check.x - transform.position.x) <= attackDistance &&
                                 Math.Abs(check.y - transform.position.y) <= attackDistance;
-                            if (inAtkRng || ignoreDistance
-                                || (special == "Create Grapple" && !GameObject.FindGameObjectWithTag("Player").GetComponent<Entities>().isGrappled))
+                            if (nonAttacker)
+                            {
+                                act = Action.Move;
+                                xOffset = Math.Sign(x);
+                                yOffset = Math.Sign(y);
+                                entity.changeDirection(Math.Sign(xOffset), Math.Sign(yOffset));
+                            }
+
+                            else if (!nonAttacker && (inAtkRng || ignoreDistance
+                                || (special == "Create Grapple" && !GameObject.FindGameObjectWithTag("Player").GetComponent<Entity>().isGrappled)))
                             {
                                 act = Action.Attack;
                                 //multiply by distance if there is an issue (removed max x and y distance)
@@ -252,7 +342,7 @@ public class Enemy : MonoBehaviour
                                 entity.changeDirection(Math.Sign(xOffset), Math.Sign(yOffset));
                                 timerA = attackDelay;
                                 if ((hybridAttacker && !inAtkRng) || (inAtkRng && entity.attack.GetComponent<Damage>().special == "Lunge")
-                                    || (!inAtkRng && special == "Create Grapple" && !GameObject.FindGameObjectWithTag("Player").GetComponent<Entities>().isGrappled))
+                                    || (!inAtkRng && special == "Create Grapple" && !GameObject.FindGameObjectWithTag("Player").GetComponent<Entity>().isGrappled))
                                 {
                                     altOverload = true;
                                     xOffset = playerLocation.x - transform.position.x;
@@ -262,7 +352,7 @@ public class Enemy : MonoBehaviour
                                 //Debug.Log(x + "\n" + y);
                                 //Debug.Log(xOffset + "\n" + yOffset);
                                 //i = 10; //end loop
-                                Debug.Log("Next action: Attack");
+                                //Debug.Log("Next action: Attack");
 
                                 if(distantAbility && 
                                     (Math.Abs(check.x - transform.position.x) == attackDistance ||
@@ -396,7 +486,7 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        if (entity.effect == Entities.Effect.Disoriented)
+        if (entity.effect == Entity.Effect.Disoriented)
         {
             xOffset *= -1;
             yOffset *= -1;
@@ -428,7 +518,7 @@ public class Enemy : MonoBehaviour
             //is the next position occupied by anyone? if yes, player or enemy? if player, change to attack, if enemy, return current position, if neither, return next coordinate
             if (collider != null && collider.GetComponent<BoxCollider2D>() != null)// && collider.GetComponent<BoxCollider2D>())// != rb.GetComponent<BoxCollider2D>())
             {
-               //Debug.Log("Something near...");
+               //Debug.Log("Something near..." + next);
 
                 canMove = false;
             }

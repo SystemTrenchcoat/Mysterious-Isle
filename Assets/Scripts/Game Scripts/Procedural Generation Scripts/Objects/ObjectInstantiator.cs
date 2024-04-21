@@ -41,8 +41,8 @@ public class ObjectInstantiator : ObjectInstantiatorAbstract
 
             var collider = Physics2D.OverlapCircle(new Vector2(next.x, next.y), .5f);
 
-            while (!(barriers.GetTile(barrierMapTile) == null && (dangers.GetTile(dangerMapTile) != null || paths.GetTile(pathMapTile))
-                && (collider == null || collider != null && collider.GetComponent<BoxCollider2D>() != null)))
+            while (!(barriers.GetTile(barrierMapTile) == null && (dangers.GetTile(dangerMapTile) != null || paths.GetTile(pathMapTile) != null)
+                    && (collider == null || collider != null && collider.GetComponent<BoxCollider2D>() == null)))
             {
                 next = new Vector3(Random.Range(0, info.radius) + .5f, Random.Range(0, info.radius) + .5f, -1);
 
@@ -59,7 +59,8 @@ public class ObjectInstantiator : ObjectInstantiatorAbstract
                 int num = Random.Range(0, info.objects.Length);
                 float chance = Random.Range(0, 1);
 
-                if (info.chances.Length == info.objects.Length && chance <= info.chances[num])
+                if (info.chances.Length == info.objects.Length && chance <= info.chances[num] ||
+                    info.chances.Length != info.objects.Length)
                 {
                     nextObject = info.objects[num];
                 }

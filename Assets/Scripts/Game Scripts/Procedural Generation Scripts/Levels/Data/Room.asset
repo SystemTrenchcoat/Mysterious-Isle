@@ -20,6 +20,6 @@ MonoBehaviour:
   dangerMin: 8
   dangerMax: 10
   pathThickness: 0.5
-  pathDangerChance: 0.001
-  areaDangerChance: 0.001
+  pathDangerChance: 0.01
+  areaDangerChance: 0.01
   startRandomlyEachIteration: 1
