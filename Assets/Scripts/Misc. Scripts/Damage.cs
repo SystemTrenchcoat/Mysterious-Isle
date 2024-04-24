@@ -150,7 +150,8 @@ public class Damage : MonoBehaviour
                         instanceY = yOffset * (i + 1);
                     }
 
-                    //Debug.Log("X: " + instanceX + "\nY: " + instanceY);
+                    Debug.Log(transform.position);
+                    Debug.Log("X: " + (instanceX + transform.position.x) + "\nY: " + (instanceY + transform.position.y) + " " + i);
                     var attack = Instantiate(instanceCreated, new Vector3(transform.position.x + instanceX, transform.position.y + instanceY, -1), Quaternion.identity);
                     if (special == "Lunge")
                     {
@@ -422,7 +423,7 @@ public class Damage : MonoBehaviour
             }
         }
         //Debug.Log("Scream");
-        gameObject.transform.Translate(new Vector3(xOffset, yOffset, -1) * speed);
+        gameObject.transform.Translate(new Vector3(xOffset, yOffset, 0) * speed);
         //Debug.Log(xOffset + "\n" + yOffset);
         if (count <= 0 && special != "Grappler")
         {

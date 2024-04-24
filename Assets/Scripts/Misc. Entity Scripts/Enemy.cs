@@ -58,6 +58,7 @@ public class Enemy : MonoBehaviour
 
     public bool canDefend = false;
     public bool distantAbility;
+    public bool distantAlt;
     public int attackDistance = 1;
     public int abilityChance;// = 25;
     public bool abilityOverload = false; //ability instead of attack
@@ -140,7 +141,8 @@ public class Enemy : MonoBehaviour
                     entity.isAttacking = true;
                     //Debug.Log(xOffset + "\n" + yOffset);
 
-                    var attack = Instantiate(instance, new Vector3(transform.position.x + xOffset, transform.position.y + yOffset, -1), Quaternion.identity);
+                    var attack = Instantiate(instance, new Vector3(transform.position.x + xOffset, 
+                        transform.position.y + yOffset, -1), Quaternion.identity);
                     attack.GetComponent<Damage>().target = GameObject.FindGameObjectWithTag("Player").GetComponent<Entity>();
                 }
 
@@ -149,6 +151,15 @@ public class Enemy : MonoBehaviour
                 {
                     gameObject.transform.Translate(new Vector3(xOffset, yOffset, 0));
                     //if (Vector3.Distance(transform.position, nextLocation) <= 0)
+                    if (special == "Move Slam")
+                    {
+                        Debug.Log(entity.transform.position.x + ", " + entity.transform.position.y);
+                        entity.isAttacking = true;
+                        instance = entity.attack;
+                        var attack = Instantiate(instance, new Vector3(transform.position.x + Math.Sign(xOffset), 
+                            transform.position.y + Math.Sign(yOffset), -1), Quaternion.identity);
+                        attack.GetComponent<Damage>().target = GameObject.FindGameObjectWithTag("Player").GetComponent<Entity>();
+                    }
                 }
 
                 else if (nextAction == Action.Defend)
@@ -186,7 +197,7 @@ public class Enemy : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision);
+        //Debug.Log(collision);
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (collision == player.GetComponent<Collider2D>())
         {
@@ -367,6 +378,20 @@ public class Enemy : MonoBehaviour
                                 {
                                     abilityOverload = false;
                                 }
+
+                                if (distantAlt &&
+                                    (Math.Abs(check.x - transform.position.x) == attackDistance ||
+                                    Math.Abs(check.y - transform.position.y) == attackDistance))
+                                {
+                                    altOverload = true;
+                                    Debug.Log("Overload");
+                                }
+                                else if (distantAlt &&
+                                    (Math.Abs(check.x - transform.position.x) > attackDistance &&
+                                    Math.Abs(check.y - transform.position.y) > attackDistance))
+                                {
+                                    altOverload = false;
+                                }
                             }
 
                             else if (canDefend && !inAtkRng)
@@ -434,12 +459,22 @@ public class Enemy : MonoBehaviour
                     if (distantAbility)
                     {
                         abilityOverload = false;
-                        Debug.Log("Reset successful");
+                        Debug.Log("Ability reset successful");
                     }
+                }
+                if (special == "Grapple Attack" && !GameObject.FindGameObjectWithTag("Player").GetComponent<Entity>().isGrappled)
+                {
+                    instance = entity.alt;
                 }
                 if (altOverload)
                 {
                     instance = entity.alt;
+
+                    if (distantAlt)
+                    {
+                        altOverload = false;
+                        Debug.Log("Alt reset successful");
+                    }
                 }
                 if (abilityChance > 0 && Random.Range(1, 101) <= abilityChance)
                 {
@@ -524,10 +559,15 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        else if (barriers.GetTile(barrierMapTile) == null)
+        else if (barriers.GetTile(barrierMapTile) != null)
         {
             canMove = false;
             //Debug.Log("There's a wall");
+        }
+
+        else if (dangers.GetTile(dangerMapTile) == null && paths.GetTile(pathMapTile) == null)
+        {
+            canMove = false;
         }
 
         return canMove;
