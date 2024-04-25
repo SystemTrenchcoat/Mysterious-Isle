@@ -137,13 +137,16 @@ public class Enemy : MonoBehaviour
                 //Debug.Log(nextAction);
                 if (nextAction == Action.Attack)
                 {
-                    //Debug.Log("Attack");
+                    Debug.Log("Attack");
                     entity.isAttacking = true;
                     //Debug.Log(xOffset + "\n" + yOffset);
+                    Debug.Log(instance);
 
                     var attack = Instantiate(instance, new Vector3(transform.position.x + xOffset, 
                         transform.position.y + yOffset, -1), Quaternion.identity);
-                    attack.GetComponent<Damage>().target = GameObject.FindGameObjectWithTag("Player").GetComponent<Entity>();
+                    Debug.Log(attack.GetComponent<Damage>().type);
+                    if (attack.GetComponent<Damage>().type != Damage.Type.Spawn)
+                        attack.GetComponent<Damage>().target = GameObject.FindGameObjectWithTag("Player").GetComponent<Entity>();
                 }
 
                 //gradually moves enemy to location
@@ -344,7 +347,8 @@ public class Enemy : MonoBehaviour
                             }
 
                             else if (!nonAttacker && (inAtkRng || ignoreDistance
-                                || (special == "Create Grapple" && !GameObject.FindGameObjectWithTag("Player").GetComponent<Entity>().isGrappled)))
+                                || (special == "Create Grapple" && 
+                                !GameObject.FindGameObjectWithTag("Player").GetComponent<Entity>().isGrappled)))
                             {
                                 act = Action.Attack;
                                 //multiply by distance if there is an issue (removed max x and y distance)
@@ -366,8 +370,8 @@ public class Enemy : MonoBehaviour
                                 //Debug.Log("Next action: Attack");
 
                                 if(distantAbility && 
-                                    (Math.Abs(check.x - transform.position.x) == attackDistance ||
-                                    Math.Abs(check.y - transform.position.y) == attackDistance))
+                                    ((Math.Abs(check.x - transform.position.x) <= attackDistance && 1 < Math.Abs(check.x - transform.position.x)) ||
+                                    (Math.Abs(check.y - transform.position.y) <= attackDistance && 1 < Math.Abs(check.y - transform.position.y))))
                                 {
                                     abilityOverload = true;
                                     Debug.Log("Overload");
@@ -380,8 +384,8 @@ public class Enemy : MonoBehaviour
                                 }
 
                                 if (distantAlt &&
-                                    (Math.Abs(check.x - transform.position.x) == attackDistance ||
-                                    Math.Abs(check.y - transform.position.y) == attackDistance))
+                                    ((Math.Abs(check.x - transform.position.x) <= attackDistance && 1 < Math.Abs(check.x - transform.position.x)) ||
+                                    (Math.Abs(check.y - transform.position.y) <= attackDistance && 1 < Math.Abs(check.y - transform.position.y))))
                                 {
                                     altOverload = true;
                                     Debug.Log("Overload");
@@ -483,6 +487,32 @@ public class Enemy : MonoBehaviour
                 if (altChance > 0 && Random.Range(1, 101) <= altChance)
                 {
                     instance = entity.alt;
+                }
+
+
+                if (special == "Queen")
+                {
+                    if (Math.Abs(playerLocation.x - transform.position.x) == 1
+                                    && Math.Abs(playerLocation.y - transform.position.y) == 1)
+                    {
+                        Debug.Log(Math.Abs(0));
+                        instance = entity.weapon;
+                    }
+                    else
+                    {
+                        xOffset = 0;
+                        yOffset = 0;
+                        Debug.Log("BEEES");
+                        if (abilityChance > 0 && Random.Range(1, 101) <= abilityChance)
+                        {
+                            instance = entity.attack;
+                            Debug.Log("deadly");
+                        }
+                        else
+                        {
+                            instance = entity.alt;
+                        }
+                    }
                 }
             }
 

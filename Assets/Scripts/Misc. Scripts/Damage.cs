@@ -52,12 +52,13 @@ public class Damage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //changeDirection(attacker.GetComponent<Entities>().direction.ToString());
-        //Debug.Log(direction);
+        //changeDirection(attacker.GetComponent<Entity>().direction.ToString());
+        Debug.Log(direction);
         //Debug.Log(attacker.GetComponent<Entities>().direction);
 
         if(!needAttacker)
         {
+            Debug.Log("Spawn");
             if (type == Type.Spawn)
             {
                 Spawn();
@@ -150,8 +151,8 @@ public class Damage : MonoBehaviour
                         instanceY = yOffset * (i + 1);
                     }
 
-                    Debug.Log(transform.position);
-                    Debug.Log("X: " + (instanceX + transform.position.x) + "\nY: " + (instanceY + transform.position.y) + " " + i);
+                    //Debug.Log(transform.position);
+                    //Debug.Log("X: " + (instanceX + transform.position.x) + "\nY: " + (instanceY + transform.position.y) + " " + i);
                     var attack = Instantiate(instanceCreated, new Vector3(transform.position.x + instanceX, transform.position.y + instanceY, -1), Quaternion.identity);
                     if (special == "Lunge")
                     {
@@ -391,7 +392,7 @@ public class Damage : MonoBehaviour
             xs = changeXOffset();
             ys = changeYOffset();
 
-            //Debug.Log("X: " + transform.position.x + "\nY: " + transform.position.y);
+            Debug.Log("X: " + transform.position.x + "\nY: " + transform.position.y);
 
             var summoned = Instantiate(instanceCreated, new Vector3(transform.position.x + xs, transform.position.y + ys, -1), Quaternion.identity);
             
@@ -437,7 +438,7 @@ public class Damage : MonoBehaviour
     {
         //Debug.Log(this + " " + collision);
         //findAttacker();
-        if (collision.GetComponent<Entity>() != null && collision.GetComponent<Entity>() != attacker && dCount <= 0)
+        if (type != Type.Spawn && collision.GetComponent<Entity>() != null && collision.GetComponent<Entity>() != attacker && dCount <= 0)
         {
             Entity entity = collision.GetComponent<Entity>();
             //Debug.Log(effect);

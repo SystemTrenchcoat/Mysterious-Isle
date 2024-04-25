@@ -177,7 +177,7 @@ MonoBehaviour:
   canDefend: 0
   distantAbility: 0
   distantAlt: 1
-  attackDistance: 1
+  attackDistance: 5
   abilityChance: 0
   abilityOverload: 0
   altChance: 0

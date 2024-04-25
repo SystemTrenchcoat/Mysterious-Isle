@@ -613,9 +613,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1994872864895631152, guid: 449b48be444eedf499442d2aeab7d3a7, type: 3}
+      propertyPath: hp
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 1994872864895631152, guid: 449b48be444eedf499442d2aeab7d3a7, type: 3}
+      propertyPath: alt
+      value: 
+      objectReference: {fileID: 5481210832297430128, guid: e29834574992eb94994a44912798b968, type: 3}
+    - target: {fileID: 1994872864895631152, guid: 449b48be444eedf499442d2aeab7d3a7, type: 3}
+      propertyPath: attack
+      value: 
+      objectReference: {fileID: 1005005252879713519, guid: 06bd14e2e72e68146acff242936efd35, type: 3}
+    - target: {fileID: 1994872864895631152, guid: 449b48be444eedf499442d2aeab7d3a7, type: 3}
+      propertyPath: health
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 1994872864895631153, guid: 449b48be444eedf499442d2aeab7d3a7, type: 3}
       propertyPath: m_Name
-      value: Bee
+      value: Queen Bee
       objectReference: {fileID: 0}
     - target: {fileID: 1994872864895631158, guid: 449b48be444eedf499442d2aeab7d3a7, type: 3}
       propertyPath: m_RootOrder
@@ -660,6 +676,62 @@ PrefabInstance:
     - target: {fileID: 1994872864895631158, guid: 449b48be444eedf499442d2aeab7d3a7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1994872864895631159, guid: 449b48be444eedf499442d2aeab7d3a7, type: 3}
+      propertyPath: m_Color.b
+      value: 0.5226415
+      objectReference: {fileID: 0}
+    - target: {fileID: 1994872864895631159, guid: 449b48be444eedf499442d2aeab7d3a7, type: 3}
+      propertyPath: m_Color.g
+      value: 0.94758415
+      objectReference: {fileID: 0}
+    - target: {fileID: 1994872864895631159, guid: 449b48be444eedf499442d2aeab7d3a7, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6876089572542411525, guid: 449b48be444eedf499442d2aeab7d3a7, type: 3}
+      propertyPath: timer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6876089572542411525, guid: 449b48be444eedf499442d2aeab7d3a7, type: 3}
+      propertyPath: timerA
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6876089572542411525, guid: 449b48be444eedf499442d2aeab7d3a7, type: 3}
+      propertyPath: special
+      value: Queen
+      objectReference: {fileID: 0}
+    - target: {fileID: 6876089572542411525, guid: 449b48be444eedf499442d2aeab7d3a7, type: 3}
+      propertyPath: altChance
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6876089572542411525, guid: 449b48be444eedf499442d2aeab7d3a7, type: 3}
+      propertyPath: canDefend
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6876089572542411525, guid: 449b48be444eedf499442d2aeab7d3a7, type: 3}
+      propertyPath: actionDelay
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6876089572542411525, guid: 449b48be444eedf499442d2aeab7d3a7, type: 3}
+      propertyPath: attackDelay
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6876089572542411525, guid: 449b48be444eedf499442d2aeab7d3a7, type: 3}
+      propertyPath: checkRadius
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6876089572542411525, guid: 449b48be444eedf499442d2aeab7d3a7, type: 3}
+      propertyPath: abilityChance
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6876089572542411525, guid: 449b48be444eedf499442d2aeab7d3a7, type: 3}
+      propertyPath: blockDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6876089572542411525, guid: 449b48be444eedf499442d2aeab7d3a7, type: 3}
+      propertyPath: ignoreDistance
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 449b48be444eedf499442d2aeab7d3a7, type: 3}
